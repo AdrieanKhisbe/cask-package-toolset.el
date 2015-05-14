@@ -25,6 +25,7 @@
      (f-delete cask-package-toolset-sandbox-path :force)))
 
 (require 'ert)
+(require 's)
 (require 'cask-package-toolset (f-expand "cask-package-toolset" cask-package-toolset-root-path))
 
 (provide 'test-helper)
