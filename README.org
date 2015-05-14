@@ -1,6 +1,16 @@
 * Cask Package Toolset
 
-In building project to help you start or tool up your emacs package project.
+[[https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el][file:https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el.svg]]
+
+/Continuous integration for EmacsLisp without pain!/
+
+** About
+
+This is an /in building project/ to help you start or tool up your emacs package project
+in order to improve it's quality by helping you to launch test and protect you from regressions.
+
+This is inspired from the [[http://rejeep.github.io/emacs/cask/ert/ert-runner/ert-async/ecukes/testing/travis/2014/01/09/various-testing-tools-in-emacs.html][following blog post]] of [[https://github.com/rejeep/][@Rejeep]] who had brought to us [[https://github.com/cask/cask][Cask]],
+[[https://github.com/rejeep/ert-runner.el][Ert-runner]] and [[https://github.com/rejeep/evm][Emacs Version Management]].
 
 ** Installation
 
@@ -10,10 +20,20 @@ Just add this has dependency to your =Cask= file
 
 ** Usage
 + View usage information:
-
   : $ cask exec package-toolset help
-+ Say hello
-  : $ cask cask exec package-toolset yo
++ Install all the tools
+  : $ cask exec package-toolset install
+
+# TODO: add command to ensure test/ecukes.
+
+** Skeleton File List
+
+Here is the list of the scaffold file to set up continuous integration for your emacs package.
+
+Here is the set of file to set this up.
++ [[file:templates/Makefile][Makefile]] : The =Makefile=, and it's =test= targets
++ [[file:templates/.gitignore][.gitgnore]] : A classic =gitignore= designed for a /casked/ emacs package
++ [[file:templates/.travis.yml][.travis.yml]] : The build configuration file for Travis.
 
 ** Notes
 
