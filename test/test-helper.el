@@ -4,28 +4,28 @@
 
 (require 'f)
 
-(defvar cask-package-toolset-test-path
+(defvar cpt-path
   (f-parent (f-this-file)))
 
-(defvar cask-package-toolset-root-path
-  (f-parent cask-package-toolset-test-path))
-
-(defvar cask-package-toolset-test-path
+(defvar cpt-test-path
   (f-dirname (f-this-file)))
 
-(defvar cask-package-toolset-sandbox-path
-  (f-expand "sandbox" cask-package-toolset-test-path))
+(defvar cpt-root-path
+  (f-parent cpt-test-path))
 
-(defmacro within-sandbox (&optional current &rest body)
+(defvar cpt-sandbox-path
+  (f-expand "sandbox" cpt-test-path))
+
+(defmacro within-sandbox (&rest body)
   "Evaluate BODY in an empty sandbox directory."
-  `(let ((default-directory cask-package-toolset-sandbox-path))
-     (f-mkdir cask-package-toolset-sandbox-path)
+  `(let ((default-directory cpt-sandbox-path))
+     (f-mkdir default-directory)
      ,@body
-     (f-delete cask-package-toolset-sandbox-path :force)))
+     (f-delete default-directory :force)))
 
 (require 'ert)
 (require 's)
-(require 'cask-package-toolset (f-expand "cask-package-toolset" cask-package-toolset-root-path))
+(require 'cask-package-toolset (f-expand "cask-package-toolset" cpt-root-path))
 
 (provide 'test-helper)
 
