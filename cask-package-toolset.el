@@ -7,7 +7,7 @@
 ;; Version: 0.1
 ;; Keywords: convenience, tools
 ;; Url: http://github.com/AdrieanKhisbe/cask-package-toolset.el
-;; Package-Requires: ((s "1.6.1") (dash "1.8.0") (f "0.10.0") (commander "0.2.0") (ansi "0.1.0") (shut-up "0.1.0"))
+;; Package-Requires: ((s "1.6.1") (dash "1.8.0") (f "0.10.0") (commander "0.2.0") (ansi "0.1.0") (shut-up "0.1.0") (magit "1.4.0"))
 
 
 ;; This file is not part of GNU Emacs.
@@ -38,6 +38,7 @@
 (require 'commander)
 (require 'ansi)
 (require 'shut-up)
+(shut-up (require 'magit))
 
 (when noninteractive
   (shut-up-silence-emacs))
@@ -46,10 +47,6 @@
   "List of templates supported by `cask-package-toolset'.")
 ;; §maybe: later replace with alist struct: option, category
 
-(defun cask-package-toolset-install-all-templates ()
-  "Install all the packages. (from `cask-package-toolset-templates')"
-  (-each cask-package-toolset-templates
-    (lambda (template) (cask-package-toolset-install-template template))))
 
 (defun cask-package-toolset-install-template (template-name)
   "Install provided TEMPLATE-NAME."
@@ -82,10 +79,20 @@
         (error "File already existing %s" destination-file)
       (f-copy template-file destination-file))))
 
+(defun cask-package-toolset-print-github-remote()
+  (message "%s" (magit-get "remote" "origin" "url")))
+
+;; commands
+(defun cask-package-toolset-install-all-templates ()
+  "Install all the packages. (from `cask-package-toolset-templates')"
+  (-each cask-package-toolset-templates
+    (lambda (template) (cask-package-toolset-install-template template))))
 
 (defun cask-package-toolset-usage ()
   "Print Help for package toolset."
   (message "Help yourself, we'll help you."))
+
+
 
 (commander
  (name "cask-package-toolset")
@@ -97,6 +104,7 @@
  (option "--help, -h" cask-package-toolset-usage)
 
  (command "install" cask-package-toolset-install-all-templates)
+ (command "git"  cask-package-toolset-print-github-remote)
  (command "help" cask-package-toolset-usage))
 
 
