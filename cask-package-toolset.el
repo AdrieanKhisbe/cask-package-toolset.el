@@ -106,7 +106,12 @@
 
 (defun cask-package-toolset-usage ()
   "Print Help for package toolset."
-  (message "Help yourself, we'll help you."))
+  (message (ansi-green "Help yourself, we'll help you.")))
+
+(defun cask-package-toolset-noop ()
+  "Invite to specify a command."
+  (message (ansi-blue "Give us a command. install for instance, or consult usage with help")))
+
 
 (defun cask-package-toolset-print-github-remote()
   (message "%s" (cask-package-toolset-get-github-repositery-name)))
@@ -115,8 +120,7 @@
  (name "cask-package-toolset")
  (description "Toolsettize your emacs package")
  (config ".cask-package-toolset")
-
- (default cask-package-toolset-usage)
+ (default cask-package-toolset-noop)
 
  (option "--help, -h" cask-package-toolset-usage)
  (option "--remote <remote>, -r <remote>" cask-package-toolset-set-github-remote)
