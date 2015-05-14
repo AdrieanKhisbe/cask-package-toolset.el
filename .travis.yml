@@ -14,7 +14,7 @@ env:
 matrix:
   fast_finish: true
   allow_failures:
-    - env: SHELL=emacs-git-snapshot
+    - env: EVM_EMACS=emacs-git-snapshot
 
 sudo: required
 before_install:
