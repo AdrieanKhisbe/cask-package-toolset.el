@@ -1,3 +1,9 @@
 * Cask Package Toolset
 
-in building project to help you start or tool up your emacs package project
+In building project to help you start or tool up your emacs package project.
+
+** Notes
+
+This is still a prototype. So if ever you think about using it, prefer the =master= branch, and expect to update your config.
+
+*If you have any remark, refactor suggestion or else, just pose an issue ;)*
