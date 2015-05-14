@@ -79,8 +79,17 @@
         (error "File already existing %s" destination-file)
       (f-copy template-file destination-file))))
 
-(defun cask-package-toolset-print-github-remote()
-  (message "%s" (magit-get "remote" "origin" "url")))
+(defun cask-package-toolset-get-github-repositery-name()
+  (let ((remote-name (magit-get "remote" "github" "url")))
+    ;; §todo: relace origin with variable
+    (when (s-contains? "github" remote-name)
+      (s-chop-suffix
+       ".git"
+       (if (s-starts-with? "git" remote-name)
+           (nth 1 (s-split ":" remote-name)) ; git protocol
+         (nth 1 (s-split ".com/" remote-name))))))) ; http
+;;§todo: mock for test
+
 
 ;; commands
 (defun cask-package-toolset-install-all-templates ()
@@ -92,7 +101,8 @@
   "Print Help for package toolset."
   (message "Help yourself, we'll help you."))
 
-
+(defun cask-package-toolset-print-github-remote()
+  (message "%s" (cask-package-toolset-get-github-repositery-name)))
 
 (commander
  (name "cask-package-toolset")
@@ -104,7 +114,7 @@
  (option "--help, -h" cask-package-toolset-usage)
 
  (command "install" cask-package-toolset-install-all-templates)
- (command "git"  cask-package-toolset-print-github-remote)
+ (command "git" cask-package-toolset-print-github-remote)
  (command "help" cask-package-toolset-usage))
 
 
