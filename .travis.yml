@@ -2,6 +2,7 @@ language: emacs-lisp
 
 script:
   - emacs --version
+  - make test
 
 env:
   matrix:
