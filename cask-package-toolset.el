@@ -6,6 +6,8 @@
 ;; Created:  2015-05-14
 ;; Version: 0.1
 ;; Keywords: convenience, tools
+;; Package-Requires: ((s "1.6.1") (dash "1.8.0") (f "0.10.0") (commander "0.2.0") (ansi "0.1.0") (shut-up "0.1.0"))
+
 
 ;; This file is not part of GNU Emacs.
 
@@ -27,6 +29,14 @@
 ;; In building project to help you start or tool up your emacs package project.
 
 ;;; Code:
+
+(require 'cl-lib)
+(require 's)
+(require 'dash)
+(require 'f)
+(require 'commander)
+(require 'ansi)
+(require 'shut-up)
 
 
 (provide 'cask-package-toolset)
