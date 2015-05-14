@@ -41,7 +41,23 @@
 (when noninteractive
   (shut-up-silence-emacs))
 
-;;
+(defvar cask-package-toolset-templates '("void")
+  "List of templates supported by `cask-package-toolset'.")
+;; §maybe: later replace with alist struct: option, category
+
+(defun cask-package-toolset-install-all-template()
+  "Install all the packages. (from `cask-package-toolset-templates')"
+  (-each cask-package-toolset-templates
+    (lambda (template) (cask-package-toolset-install-template template))))
+
+(defun cask-package-toolset-install-template (template-name)
+  "Install provided TEMPLATE-NAME."
+  (if (cask-package-toolset-template-present-p template-name)
+      (progn
+        (message "File %s is already existing. Skipping" template-name)
+        nil)
+    (progn (cask-package-toolset-copy-template template-name)
+           t)))
 
 (defvar cask-package-toolset-template-dir (f-expand "templates")
   "Folder holding the package templates.")
@@ -50,13 +66,13 @@
   "Return path for TEMPLATE-NAME."
   (f-expand template-name cask-package-toolset-template-dir))
 
-
 (defun cask-package-toolset-template-present-p (template-name)
   "Return t if TEMPLATE-NAME is already present in current-dir."
   (f-exists? (f-expand template-name)))
 
 (defun cask-package-toolset-copy-template (template-name &optional subfolder)
   "Copy specified TEMPLATE-NAME in current folder or specified SUBFOLDER."
+  ;; §MAYBE: add force param?
   (let ((template-file (cask-package-toolset--template-path template-name))
         (destination-file (f-expand template-name)))
     (unless (f-exists? template-file)

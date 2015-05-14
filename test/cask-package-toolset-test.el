@@ -28,3 +28,9 @@
     (let ((file-name "void") )
       (within-sandbox
        (should-not (cask-package-toolset-template-present-p file-name)))))
+
+(ert-deftest cpt-install-all()
+  (within-sandbox
+   (cask-package-toolset-install-all-template)
+   (should (-all? (lambda (file) (f-exists? file))
+                  cask-package-toolset-templates))))
