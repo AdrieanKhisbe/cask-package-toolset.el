@@ -38,6 +38,24 @@
 (require 'ansi)
 (require 'shut-up)
 
+(when noninteractive
+  (shut-up-silence-emacs))
+
+;;
+
+(defvar cask-package-toolset-template-dir (f-expand "templates")
+  "Folder holding the package templates.")
+
+(defun cask-package-toolset-copy-template (template-name &optional subfolder)
+  "Copy specified TEMPLATE-NAME in current folder or specified SUBFOLDER."
+  (let ((template-file (f-expand template-name cask-package-toolset-template-dir))
+        (destination-file (f-expand template-name)))
+    (unless (f-exists? template-file)
+      (error "Template %s not found" template-name)) ; §todo: use real error.
+    (if (f-exists? destination-file)
+        (error "File already existing %s" destination-file)
+      (f-copy template-file destination-file))))
+
 
 (defun cask-package-toolset-usage ()
   "Print Help for package toolset."

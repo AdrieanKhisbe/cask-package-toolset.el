@@ -18,8 +18,7 @@
 
 (defmacro within-sandbox (&optional current &rest body)
   "Evaluate BODY in an empty sandbox directory."
-  `(let ((default-directory
-           (f-join cask-package-toolset-sandbox-path (format "%s" ,current))))
+  `(let ((default-directory cask-package-toolset-sandbox-path))
      (f-mkdir cask-package-toolset-sandbox-path)
      ,@body
      (f-delete cask-package-toolset-sandbox-path :force)))

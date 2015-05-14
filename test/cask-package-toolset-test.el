@@ -7,11 +7,15 @@
 
 (ert-deftest cpt-copy-template-non-existing-file ()
  ;; todo: see really how sandow works
-  (let ((file-name "stub-file") )
-    (within-sandbox cpt-sandbox
-     (f-touch file-name) ; §todo: retrieve in template file?
+  (let ((file-name "void") )
+    (within-sandbox
+     (message "def dir: %s" default-directory)
      (cask-package-toolset-copy-template file-name)
-     (should (f-exists? file-name))
-     )))
+     (should (f-exists? (f-expand file-name))))))
 
-(ert-deftest cpt-copy-template-should-not-erase-existing-file ())
+
+(ert-deftest cpt-copy-template-should-not-erase-existing-file ()
+  (let ((file-name "void") )
+    (within-sandbox
+     (cask-package-toolset-copy-template file-name)
+     (should-error (cask-package-toolset-copy-template file-name)))))
