@@ -47,6 +47,13 @@
   "List of templates supported by `cask-package-toolset'.")
 ;; §maybe: later replace with alist struct: option, category
 
+(defvar cask-package-toolset-github-remote "origin"
+  "Name of the Github remote.")
+
+(defun cask-package-toolset-set-github-remote (remote)
+  "Set github REMOTE."
+  ;; §todo: check real remote
+  (setq cask-package-toolset-github-remote remote))
 
 (defun cask-package-toolset-install-template (template-name)
   "Install provided TEMPLATE-NAME."
@@ -80,7 +87,7 @@
       (f-copy template-file destination-file))))
 
 (defun cask-package-toolset-get-github-repositery-name()
-  (let ((remote-name (magit-get "remote" "github" "url")))
+  (let ((remote-name (magit-get "remote" cask-package-toolset-github-remote "url")))
     ;; §todo: relace origin with variable
     (when (s-contains? "github" remote-name)
       (s-chop-suffix
@@ -112,6 +119,7 @@
  (default cask-package-toolset-usage)
 
  (option "--help, -h" cask-package-toolset-usage)
+ (option "--remote <remote>, -r <remote>" cask-package-toolset-set-github-remote)
 
  (command "install" cask-package-toolset-install-all-templates)
  (command "git" cask-package-toolset-print-github-remote)
