@@ -2,6 +2,7 @@
 ;;; Code:
 
 ;; §todo: make quiet test
+
 (ert-deftest cpt-usage ()
   (should-not (s-blank? (cask-package-toolset-usage))))
 
