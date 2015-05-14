@@ -39,5 +39,21 @@
 (require 'shut-up)
 
 
+(defun cask-package-toolset-usage ()
+  "Print Help for package toolset."
+  (message "Help yourself, we'll help you."))
+
+(commander
+ (name "cask-package-toolset")
+ (description "Toolsettize your emacs package")
+ (config ".cask-package-toolset")
+
+ (default cask-package-toolset-usage)
+
+ (option "--help, -h" cask-package-toolset-usage)
+
+ (command "help" cask-package-toolset-usage))
+
+
 (provide 'cask-package-toolset)
 ;;; cask-package-toolset.el ends here
