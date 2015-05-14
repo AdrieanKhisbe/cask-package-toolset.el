@@ -24,3 +24,6 @@ before_install:
   - export PATH="/home/travis/.evm/bin:$PATH"
   - '[ "$EVM_EMACS" = "emacs-24.3-bin" ] || evm install $EVM_EMACS --use'
   - cask
+
+notifications:
+  email: false
