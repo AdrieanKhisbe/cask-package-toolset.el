@@ -24,6 +24,7 @@
 
 ;;; Commentary:
 
+;; In building project to help you start or tool up your emacs package project.
 
 ;;; Code:
 
