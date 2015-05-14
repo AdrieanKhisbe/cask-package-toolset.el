@@ -6,6 +6,7 @@
 ;; Created:  2015-05-14
 ;; Version: 0.1
 ;; Keywords: convenience, tools
+;; Url: http://github.com/AdrieanKhisbe/cask-package-toolset.el
 ;; Package-Requires: ((s "1.6.1") (dash "1.8.0") (f "0.10.0") (commander "0.2.0") (ansi "0.1.0") (shut-up "0.1.0"))
 
 
@@ -41,7 +42,7 @@
 (when noninteractive
   (shut-up-silence-emacs))
 
-(defvar cask-package-toolset-templates '("Makefile" ".gitignore")
+(defvar cask-package-toolset-templates '("Makefile" ".gitignore" ".travis.yml")
   "List of templates supported by `cask-package-toolset'.")
 ;; §maybe: later replace with alist struct: option, category
 
