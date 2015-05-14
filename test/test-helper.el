@@ -19,7 +19,8 @@
 (defmacro within-sandbox (&rest body)
   "Evaluate BODY in an empty sandbox directory."
   `(let ((default-directory cpt-sandbox-path))
-     (when (f-directory? cpt-sandbox-path) (f-delete default-directory :force))
+     (when (f-exists? cpt-sandbox-path)
+       (error "Something is already in %s. Check and destroy it yourself" cpt-sandbox-path))
      (f-mkdir cpt-sandbox-path)
      ,@body
      (f-delete default-directory :force)))

@@ -46,9 +46,18 @@
 (defvar cask-package-toolset-template-dir (f-expand "templates")
   "Folder holding the package templates.")
 
+(defun cask-package-toolset--template-path (template-name)
+  "Return path for TEMPLATE-NAME."
+  (f-expand template-name cask-package-toolset-template-dir))
+
+
+(defun cask-package-toolset-template-present-p (template-name)
+  "Return t if TEMPLATE-NAME is already present in current-dir."
+  (f-exists? (f-expand template-name)))
+
 (defun cask-package-toolset-copy-template (template-name &optional subfolder)
   "Copy specified TEMPLATE-NAME in current folder or specified SUBFOLDER."
-  (let ((template-file (f-expand template-name cask-package-toolset-template-dir))
+  (let ((template-file (cask-package-toolset--template-path template-name))
         (destination-file (f-expand template-name)))
     (unless (f-exists? template-file)
       (error "Template %s not found" template-name)) ; §todo: use real error.

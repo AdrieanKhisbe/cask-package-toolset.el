@@ -17,3 +17,14 @@
     (within-sandbox
      (cask-package-toolset-copy-template file-name)
      (should-error (cask-package-toolset-copy-template file-name)))))
+
+(ert-deftest cpt-template-present--if-present ()
+  (let ((file-name "void") )
+    (within-sandbox
+     (cask-package-toolset-copy-template file-name)
+     (should  (cask-package-toolset-template-present-p file-name)))))
+
+(ert-deftest cpt-template-present--if-absent ()
+    (let ((file-name "void") )
+      (within-sandbox
+       (should-not (cask-package-toolset-template-present-p file-name)))))
