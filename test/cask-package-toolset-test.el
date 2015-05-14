@@ -31,6 +31,6 @@
 
 (ert-deftest cpt-install-all()
   (within-sandbox
-   (cask-package-toolset-install-all-template)
+   (cask-package-toolset-install-all-templates)
    (should (-all? (lambda (file) (f-exists? file))
                   cask-package-toolset-templates))))

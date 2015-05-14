@@ -41,11 +41,11 @@
 (when noninteractive
   (shut-up-silence-emacs))
 
-(defvar cask-package-toolset-templates '("void")
+(defvar cask-package-toolset-templates '("Makefile" ".gitignore")
   "List of templates supported by `cask-package-toolset'.")
 ;; §maybe: later replace with alist struct: option, category
 
-(defun cask-package-toolset-install-all-template()
+(defun cask-package-toolset-install-all-templates ()
   "Install all the packages. (from `cask-package-toolset-templates')"
   (-each cask-package-toolset-templates
     (lambda (template) (cask-package-toolset-install-template template))))
@@ -54,7 +54,7 @@
   "Install provided TEMPLATE-NAME."
   (if (cask-package-toolset-template-present-p template-name)
       (progn
-        (message "File %s is already existing. Skipping" template-name)
+        (warn "File %s is already existing. Skipping" template-name)
         nil)
     (progn (cask-package-toolset-copy-template template-name)
            t)))
@@ -95,6 +95,7 @@
 
  (option "--help, -h" cask-package-toolset-usage)
 
+ (command "install" cask-package-toolset-install-all-templates)
  (command "help" cask-package-toolset-usage))
 
 
