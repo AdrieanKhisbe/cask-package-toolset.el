@@ -1,4 +1,4 @@
-;;; cask-package-toolset.el --- Toolsettize your package
+;;; cask-package-toolset.el --- Toolsettize your package   -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2015  Adrien Becchis
 
