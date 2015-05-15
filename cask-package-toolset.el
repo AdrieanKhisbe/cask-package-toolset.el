@@ -4,7 +4,7 @@
 
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Created:  2015-05-14
-;; Version: 0.1
+;; Version: 0.2
 ;; Keywords: convenience, tools
 ;; Url: http://github.com/AdrieanKhisbe/cask-package-toolset.el
 ;; Package-Requires: ((s "1.6.1") (dash "1.8.0") (f "0.10.0") (commander "0.2.0") (ansi "0.1.0") (shut-up "0.1.0") (magit "1.4.0"))
@@ -60,6 +60,7 @@
   (if (cask-package-toolset-template-present-p template-name)
       (progn
         (warn "File %s is already existing. Skipping" template-name)
+        ;; §TODO: force option
         nil)
     (progn (cask-package-toolset-copy-template template-name)
            t)))
@@ -77,7 +78,7 @@
 
 (defun cask-package-toolset-copy-template (template-name &optional subfolder)
   "Copy specified TEMPLATE-NAME in current folder or specified SUBFOLDER."
-  ;; §MAYBE: add force param?
+  ;; §TODO: add force param? (see how to use a symbol anywhere?)
   (let ((template-file (cask-package-toolset--template-path template-name))
         (destination-file (f-expand template-name)))
     (unless (f-exists? template-file)
@@ -120,9 +121,10 @@ Note it remove enventual trailing .el"
           (cask-package-toolset-project-name repositery-name)
           repositery-name))
 
+;; §TODO: Badge generator: melpas, travis
+;; §maybe: badge for cask conventions
 
 ;; Commands
-
 (defun cask-package-toolset-install-all-templates ()
   "Install all the packages.  (from `cask-package-toolset-templates')."
   (-each cask-package-toolset-templates

@@ -35,6 +35,8 @@
    (should (-all? (lambda (file) (f-exists? file))
                   cask-package-toolset-templates))))
 
+;; Extractors
+
 (ert-deftest cpt-github-url()
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
         (github-url "http://github.com/AdrieanKhisbe/cask-package-toolset.el"))
@@ -49,6 +51,8 @@
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
         (project-name "cask-package-toolset"))
     (should (equal (cask-package-toolset-project-name repo-name) project-name))))
+
+;; Generators
 
 (ert-deftest cpt-melpa-recipe()
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
