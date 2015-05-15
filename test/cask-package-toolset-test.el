@@ -35,7 +35,6 @@
    (should (-all? (lambda (file) (f-exists? file))
                   cask-package-toolset-templates))))
 
-
 (ert-deftest cpt-github-url()
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
         (github-url "http://github.com/AdrieanKhisbe/cask-package-toolset.el"))
@@ -43,5 +42,10 @@
 
 (ert-deftest cpt-travis-url()
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
-        (github-url "http://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el"))
-    (should (equal (cask-package-toolset-travis-url repo-name) github-url))))
+        (travis-url "http://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el"))
+    (should (equal (cask-package-toolset-travis-url repo-name) travis-url))))
+
+(ert-deftest cpt-project-name()
+  (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
+        (project-name "cask-package-toolset"))
+    (should (equal (cask-package-toolset-project-name repo-name) project-name))))

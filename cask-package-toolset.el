@@ -86,6 +86,8 @@
         (error "File already existing %s" destination-file)
       (f-copy template-file destination-file))))
 
+;; Project Property extractors
+
 (defun cask-package-toolset-github-repositery-name()
   (let ((remote-name (magit-get "remote" cask-package-toolset-github-remote "url")))
     ;; §todo: relace origin with variable
@@ -105,7 +107,16 @@
   "Return the github url from REPOSITERY-NAME."
   (format "http://travis-ci.org/%s" repositery-name))
 
-;; commands
+(defun cask-package-toolset-project-name (repositery-name)
+  "Return the project name from REPOSITERY-NAME.
+
+Note it remove enventual trailing .el"
+  (s-chop-suffix ".el" (nth 1 (s-split "/" repositery-name))))
+
+
+
+;; Commands
+
 (defun cask-package-toolset-install-all-templates ()
   "Install all the packages.  (from `cask-package-toolset-templates')."
   (-each cask-package-toolset-templates
