@@ -4,13 +4,14 @@
 
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Created:  2015-05-14
-;; Version: 0.2
+;; Version: 0.2.1
 ;; Keywords: convenience, tools
 ;; Url: http://github.com/AdrieanKhisbe/cask-package-toolset.el
-;; Package-Requires: ((s "1.6.1") (dash "1.8.0") (f "0.10.0") (commander "0.2.0") (ansi "0.1.0") (shut-up "0.1.0") (magit "1.4.0"))
-
+;; Package-Requires: ((emacs "24") (cl-lib "0.3") (S "1.6.1") (dash "1.8.0") (f "0.10.0") (commander "0.2.0") (ansi "0.1.0") (shut-up "0.1.0") (magit "1.4.0"))
 
 ;; This file is not part of GNU Emacs.
+
+;;; Licence:
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -102,25 +103,25 @@
 
 (defun cask-package-toolset-github-url (repositery-name)
   "Return the github url from REPOSITERY-NAME."
-  (when (not (s-blank? repositery-name))
+  (unless (s-blank? repositery-name)
     (format "http://github.com/%s" repositery-name)))
 
 (defun cask-package-toolset-travis-url (repositery-name)
   "Return the github url from REPOSITERY-NAME."
-  (when (not (s-blank? repositery-name))
+  (unless (s-blank? repositery-name)
     (format "http://travis-ci.org/%s" repositery-name)))
 
 (defun cask-package-toolset-project-name (repositery-name)
   "Return the project name from REPOSITERY-NAME.
 
 Note it remove enventual trailing .el"
-  (when (not (s-blank? repositery-name))
+  (unless (s-blank? repositery-name)
     (s-chop-suffix ".el" (nth 1 (s-split "/" repositery-name)))))
 
 ;; Fragment generator
 (defun cask-package-toolset-melpa-recipe (repositery-name)
   "Return a melpa recipe corresponding to the REPOSITERY-NAME."
-  (when (not (s-blank? repositery-name))
+  (unless (s-blank? repositery-name)
     (format "(%s :fetcher github :repo \"%s\")"
             (cask-package-toolset-project-name repositery-name)
             repositery-name)))
