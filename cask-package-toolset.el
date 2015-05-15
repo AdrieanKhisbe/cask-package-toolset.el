@@ -113,6 +113,12 @@
 Note it remove enventual trailing .el"
   (s-chop-suffix ".el" (nth 1 (s-split "/" repositery-name))))
 
+;; Fragment generator
+(defun cask-package-toolset-melpa-recipe (repositery-name)
+  "Return a melpa recipe corresponding to the REPOSITERY-NAME."
+  (format "(%s :fetcher github :repo \"%s\")"
+          (cask-package-toolset-project-name repositery-name)
+          repositery-name))
 
 
 ;; Commands

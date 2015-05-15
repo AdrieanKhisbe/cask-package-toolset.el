@@ -49,3 +49,9 @@
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
         (project-name "cask-package-toolset"))
     (should (equal (cask-package-toolset-project-name repo-name) project-name))))
+
+(ert-deftest cpt-melpa-recipe()
+  (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
+        (melpa-recipe
+         "(cask-package-toolset :fetcher github :repo \"AdrieanKhisbe/cask-package-toolset.el\")"))
+    (should (equal (cask-package-toolset-melpa-recipe repo-name) melpa-recipe))))
