@@ -23,8 +23,14 @@ Just add this has dependency to your =Cask= file
   : $ cask exec package-toolset help
 + Install all the tools
   : $ cask exec package-toolset install
++ Print the melpa recipe for your repositery
+  : $ cask exec package-toolset melpa-recipe
 
 # TODO: add command to ensure test/ecukes.
+
+*** Options
++ in case your =origin= remote is not targeting your github repositery, you can specify it with the =-r <remote>= or =--remote <remote>= option
+
 
 ** Skeleton File List
 
@@ -37,9 +43,7 @@ Here is the set of file to set this up.
 
 ** Notes
 
-This is still a prototype. So if ever you think about using it, prefer the =master= branch, and expect to update your config.
-
-If POC is working, happen to be usefull, (/will personnaly use it to "toolsettize" personnage package I built but not yet made public)
+This is still a prototype. If POC is working, happen to be usefull, (/will personnaly use it to "toolsettize" personnage package I built but not yet made public/)
 I will see with the =Cask= team to incorporate it to make it helpful to the comunity, and help promote use of integration and tests.
 
 *If you have any remark, refactor suggestion or else, just pose an issue ;)*

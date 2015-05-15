@@ -102,24 +102,28 @@
 
 (defun cask-package-toolset-github-url (repositery-name)
   "Return the github url from REPOSITERY-NAME."
-  (format "http://github.com/%s" repositery-name))
+  (when (not (s-blank? repositery-name))
+    (format "http://github.com/%s" repositery-name)))
 
 (defun cask-package-toolset-travis-url (repositery-name)
   "Return the github url from REPOSITERY-NAME."
-  (format "http://travis-ci.org/%s" repositery-name))
+  (when (not (s-blank? repositery-name))
+    (format "http://travis-ci.org/%s" repositery-name)))
 
 (defun cask-package-toolset-project-name (repositery-name)
   "Return the project name from REPOSITERY-NAME.
 
 Note it remove enventual trailing .el"
-  (s-chop-suffix ".el" (nth 1 (s-split "/" repositery-name))))
+  (when (not (s-blank? repositery-name))
+    (s-chop-suffix ".el" (nth 1 (s-split "/" repositery-name)))))
 
 ;; Fragment generator
 (defun cask-package-toolset-melpa-recipe (repositery-name)
   "Return a melpa recipe corresponding to the REPOSITERY-NAME."
-  (format "(%s :fetcher github :repo \"%s\")"
-          (cask-package-toolset-project-name repositery-name)
-          repositery-name))
+  (when (not (s-blank? repositery-name))
+    (format "(%s :fetcher github :repo \"%s\")"
+            (cask-package-toolset-project-name repositery-name)
+            repositery-name)))
 
 ;; §TODO: Badge generator: melpas, travis
 ;; §maybe: badge for cask conventions
@@ -138,9 +142,16 @@ Note it remove enventual trailing .el"
   "Invite to specify a command."
   (message (ansi-blue "Give us a command. install for instance, or consult usage with help")))
 
-
 (defun cask-package-toolset-print-github-remote()
   (message "%s" (cask-package-toolset-github-repositery-name)))
+
+(defun cask-package-toolset-print-melpa-recipe ()
+  "Print Help for package toolset."
+  (let ((melpa-recipe (cask-package-toolset-melpa-recipe
+                       (cask-package-toolset-github-repositery-name))))
+    (message (if (s-blank? melpa-recipe)
+                 (ansi-red "We could not retrieve melpa recipe, specify the remote if origin does not refer to your github repositery.")
+               melpa-recipe))))
 
 (commander
  (name "cask-package-toolset")
@@ -148,10 +159,11 @@ Note it remove enventual trailing .el"
  (config ".cask-package-toolset")
  (default cask-package-toolset-noop)
 
- (option "--help, -h" cask-package-toolset-usage)
+ (option "--help, -h" cask-package-toolset-usage) ; §todo: option specific help
  (option "--remote <remote>, -r <remote>" cask-package-toolset-set-github-remote)
 
  (command "install" cask-package-toolset-install-all-templates)
+ (command "melpa-recipe" cask-package-toolset-print-melpa-recipe)
  (command "git" cask-package-toolset-print-github-remote)
  (command "help" cask-package-toolset-usage))
 
