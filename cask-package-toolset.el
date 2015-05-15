@@ -86,7 +86,7 @@
         (error "File already existing %s" destination-file)
       (f-copy template-file destination-file))))
 
-(defun cask-package-toolset-get-github-repositery-name()
+(defun cask-package-toolset-github-repositery-name()
   (let ((remote-name (magit-get "remote" cask-package-toolset-github-remote "url")))
     ;; §todo: relace origin with variable
     (when (s-contains? "github" remote-name)
@@ -97,10 +97,17 @@
          (nth 1 (s-split ".com/" remote-name))))))) ; http
 ;;§todo: mock for test
 
+(defun cask-package-toolset-github-url (repositery-name)
+  "Return the github url from REPOSITERY-NAME."
+  (format "http://github.com/%s" repositery-name))
+
+(defun cask-package-toolset-travis-url (repositery-name)
+  "Return the github url from REPOSITERY-NAME."
+  (format "http://travis-ci.org/%s" repositery-name))
 
 ;; commands
 (defun cask-package-toolset-install-all-templates ()
-  "Install all the packages. (from `cask-package-toolset-templates')"
+  "Install all the packages.  (from `cask-package-toolset-templates')."
   (-each cask-package-toolset-templates
     (lambda (template) (cask-package-toolset-install-template template))))
 
@@ -114,7 +121,7 @@
 
 
 (defun cask-package-toolset-print-github-remote()
-  (message "%s" (cask-package-toolset-get-github-repositery-name)))
+  (message "%s" (cask-package-toolset-github-repositery-name)))
 
 (commander
  (name "cask-package-toolset")
