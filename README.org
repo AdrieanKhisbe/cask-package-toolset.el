@@ -1,6 +1,8 @@
 * Cask Package Toolset
 
 [[https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el][file:https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el.svg]]
+[[http://melpa.org/#/cask-package-toolset][file:http://melpa.org/packages/cask-package-toolset.svg]]
+[[http://stable.melpa.org/#/cask-package-toolset][file:http://stable.melpa.org/packages/cask-package-toolset.svg]]
 
 /Continuous integration for EmacsLisp without pain!/
 
@@ -25,12 +27,14 @@ Just add this has dependency to your =Cask= file
   : $ cask exec package-toolset install
 + Print the melpa recipe for your repositery
   : $ cask exec package-toolset melpa-recipe
++ Print the badges for the =README=
+  : $ cask exec package-toolset badge
 
-# TODO: add command to ensure test/ecukes.
+# TODO: add command to ensure test/ecukes. or print message while installing
 
 *** Options
 + in case your =origin= remote is not targeting your github repositery, you can specify it with the =-r <remote>= or =--remote <remote>= option
-
++ For the badges creation, you can specify the syntax you want with =-s <syntax>= or =--syntax <syntax>=. Legit values are =orgmode= =markdown= and =html=, =markown= bring the default
 
 ** Skeleton File List
 
