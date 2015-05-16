@@ -131,7 +131,7 @@ Throw exception if non existing!"
     (format "http://github.com/%s" repositery-name)))
 
 (defun cask-package-toolset-travis-url (repositery-name)
-  "Return the github url from REPOSITERY-NAME."
+  "Return the travis url from REPOSITERY-NAME."
   (unless (s-blank? repositery-name)
     (format "http://travis-ci.org/%s" repositery-name)))
 
@@ -156,6 +156,19 @@ Note it remove enventual trailing .el"
     (format (cask-package-toolset-badge-template :travis syntax)
             repositery-name repositery-name)))
 
+(defun cask-package-toolset-melpa-badge (repositery-name syntax)
+  "Return a melpa badge corresponding to the REPOSITERY-NAME in specified SYNTAX."
+  (unless (s-blank? repositery-name)
+    (let ((project-name (cask-package-toolset-project-name repositery-name)))
+      (format (cask-package-toolset-badge-template :melpa syntax)
+              project-name project-name))))
+
+(defun cask-package-toolset-melpa-stable-badge (repositery-name syntax)
+  "Return a melpa stable badge corresponding to the REPOSITERY-NAME in specified SYNTAX."
+  (unless (s-blank? repositery-name)
+    (let ((project-name (cask-package-toolset-project-name repositery-name)))
+      (format (cask-package-toolset-badge-template :melpa-stable syntax)
+              project-name project-name))))
 ;; §maybe: badge for cask conventions
 
 ;; Commands

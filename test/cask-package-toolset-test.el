@@ -71,3 +71,13 @@
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
         (travis-badge "[[https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el][file:https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el.svg]]"))
     (should (equal (cask-package-toolset-travis-badge repo-name :orgmode) travis-badge))))
+
+(ert-deftest cpt-melpa-badge-markdown()
+  (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
+        (melpa-badge "[![MELPA](http://melpa.org/packages/cask-package-toolset.svg)](http://melpa.org/#/cask-package-toolset))"))
+    (should (equal (cask-package-toolset-melpa-badge repo-name :markdown) melpa-badge))))
+
+(ert-deftest cpt-melpa-stable-badge-html()
+  (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
+        (melpa-stable-badge "<a href=\"http://stable.melpa.org/#/cask-package-toolset\"><img alt=\"MELPA Stable\" src=\"http://stable.melpa.org/packages/cask-package-toolset.svg\"/></a>"))
+    (should (equal (cask-package-toolset-melpa-stable-badge repo-name :html) melpa-stable-badge))))
