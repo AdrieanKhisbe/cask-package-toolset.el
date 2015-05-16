@@ -80,6 +80,12 @@ Throw exception if non existing!"
   ;; §todo: check real remote
   (setq cask-package-toolset-github-remote remote))
 
+(defun cask-package-toolset-set-badge-syntax (syntax)
+  "Set badge SYNTAX."
+  (if (-any? (lambda(s)(s-equals? s syntax)) '("html" "markdown" "orgmode"))
+      (setq cask-package-toolset-badge-syntax (intern (s-concat ":" syntax)))
+      (message (ansi-red (format "%s is not a syntax, keeping default" syntax)))))
+
 (defun cask-package-toolset-install-template (template-name)
   "Install provided TEMPLATE-NAME."
   (if (cask-package-toolset-template-present-p template-name)
@@ -204,6 +210,7 @@ Note it remove enventual trailing .el"
 
  (option "--help, -h" cask-package-toolset-usage) ; §todo: option specific help
  (option "--remote <remote>, -r <remote>" cask-package-toolset-set-github-remote)
+ (option "--syntax <syntax>, -s <syntax>" cask-package-toolset-set-badge-syntax)
 
  (command "install" cask-package-toolset-install-all-templates)
  (command "melpa-recipe" cask-package-toolset-print-melpa-recipe)

@@ -81,3 +81,11 @@
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
         (melpa-stable-badge "<a href=\"http://stable.melpa.org/#/cask-package-toolset\"><img alt=\"MELPA Stable\" src=\"http://stable.melpa.org/packages/cask-package-toolset.svg\"/></a>"))
     (should (equal (cask-package-toolset-melpa-stable-badge repo-name :html) melpa-stable-badge))))
+
+(ert-deftest cask-package-toolset-set-badge-syntax-ko()
+  (shut-up (cask-package-toolset-set-badge-syntax "junk"))
+  (should (equal cask-package-toolset-badge-syntax :markdown )))
+
+(ert-deftest cask-package-toolset-set-badge-syntax-ok()
+  (cask-package-toolset-set-badge-syntax "orgmode")
+  (should (equal cask-package-toolset-badge-syntax :orgmode)))
