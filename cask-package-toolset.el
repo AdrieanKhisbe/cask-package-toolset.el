@@ -126,6 +126,13 @@ Note it remove enventual trailing .el"
             (cask-package-toolset-project-name repositery-name)
             repositery-name)))
 
+;; need to handle format!! ste default, and so.
+(defun cask-package-toolset-travis-badge (repositery-name)
+  "Return a travis badge corresponding to the REPOSITERY-NAME."
+  (unless (s-blank? repositery-name)
+    (format "[[https://travis-ci.org/%s][file:https://travis-ci.org/%s.svg]]"
+            repositery-name repositery-name)))
+
 ;; §TODO: Badge generator: melpas, travis
 ;; §maybe: badge for cask conventions
 

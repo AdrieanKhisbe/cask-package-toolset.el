@@ -59,3 +59,8 @@
         (melpa-recipe
          "(cask-package-toolset :fetcher github :repo \"AdrieanKhisbe/cask-package-toolset.el\")"))
     (should (equal (cask-package-toolset-melpa-recipe repo-name) melpa-recipe))))
+
+(ert-deftest cpt-travis-badge-org()
+  (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
+        (travis-badge "[[https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el][file:https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el.svg]]"))
+    (should (equal (cask-package-toolset-travis-badge repo-name) travis-badge))))
