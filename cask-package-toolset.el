@@ -195,12 +195,22 @@ Note it remove enventual trailing .el"
   (message "%s" (cask-package-toolset-github-repositery-name)))
 
 (defun cask-package-toolset-print-melpa-recipe ()
-  "Print Help for package toolset."
+  "Print Melpa Recipe."
   (let ((melpa-recipe (cask-package-toolset-melpa-recipe
                        (cask-package-toolset-github-repositery-name))))
     (message (if (s-blank? melpa-recipe)
                  (ansi-red "We could not retrieve melpa recipe, specify the remote if origin does not refer to your github repositery.")
                melpa-recipe))))
+(defun cask-package-toolset-print-badges ()
+  "Print Melpa Recipe."
+  (let ((repositery-name (cask-package-toolset-github-repositery-name)))
+    (if repositery-name
+        (progn
+          (message (cask-package-toolset-travis-badge repositery-name cask-package-toolset-badge-syntax))
+          (message (cask-package-toolset-melpa-badge repositery-name cask-package-toolset-badge-syntax))
+          (message (cask-package-toolset-melpa-stable-badge repositery-name cask-package-toolset-badge-syntax)))
+      (message (ansi-red "We could not retrieve melpa recipe, specify the remote if origin does not refer to your github repositery.")))))
+
 
 (commander
  (name "cask-package-toolset")
@@ -214,6 +224,7 @@ Note it remove enventual trailing .el"
 
  (command "install" cask-package-toolset-install-all-templates)
  (command "melpa-recipe" cask-package-toolset-print-melpa-recipe)
+ (command "badge" cask-package-toolset-print-badges)
  (command "git" cask-package-toolset-print-github-remote)
  (command "help" cask-package-toolset-usage))
 
