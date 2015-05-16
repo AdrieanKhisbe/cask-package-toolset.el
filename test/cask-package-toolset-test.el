@@ -74,12 +74,12 @@
 
 (ert-deftest cpt-melpa-badge-markdown()
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
-        (melpa-badge "[![MELPA](http://melpa.org/packages/cask-package-toolset.svg)](http://melpa.org/#/cask-package-toolset))"))
+        (melpa-badge "[![MELPA](http://melpa.org/packages/cask-package-toolset-badge.svg)](http://melpa.org/#/cask-package-toolset))"))
     (should (equal (cask-package-toolset-melpa-badge repo-name :markdown) melpa-badge))))
 
 (ert-deftest cpt-melpa-stable-badge-html()
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
-        (melpa-stable-badge "<a href=\"http://stable.melpa.org/#/cask-package-toolset\"><img alt=\"MELPA Stable\" src=\"http://stable.melpa.org/packages/cask-package-toolset.svg\"/></a>"))
+        (melpa-stable-badge "<a href=\"http://stable.melpa.org/#/cask-package-toolset\"><img alt=\"MELPA Stable\" src=\"http://stable.melpa.org/packages/cask-package-toolset-badge.svg\"/></a>"))
     (should (equal (cask-package-toolset-melpa-stable-badge repo-name :html) melpa-stable-badge))))
 
 (ert-deftest cask-package-toolset-set-badge-syntax-ko()
