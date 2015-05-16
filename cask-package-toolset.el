@@ -55,9 +55,18 @@
 
 (defconst cask-package-toolset-badge-templates-alist
   '(
-    (:travis . ((:markdown . "")
+    (:travis . ((:html . "<a href=\"http://travis-ci.org/%s\"><img alt=\"Build Status\" src=\" https://travis-ci.org/%s.svg\"/></a>")
+                (:markdown . "[![Build Status](https://travis-ci.org/%s.el.svg)](https://travis-ci.org/%s)")
                 (:orgmode . "[[https://travis-ci.org/%s][file:https://travis-ci.org/%s.svg]]")))
-    ))
+    (:melpa . ((:html . "<a href=\"http://melpa.org/#/%s\"><img alt=\"MELPA\" src=\"http://melpa.org/packages/%s.svg\"/></a>")
+               (:markdown . "[![MELPA](http://melpa.org/packages/%s.svg)](http://melpa.org/#/%s))")
+               (:orgmode . "[[http://melpa.org/#/%s][file:http://melpa.org/packages/%s.svg]]")))
+    (:melpa-stable . ((:html . "<a href=\"http://stable.melpa.org/#/%s\"><img alt=\"MELPA Stable\" src=\"http://stable.melpa.org/packages/%s.svg\"/></a>")
+                      (:markdown . "[![MELPA stable](http://stable.melpa.org/packages/%s.svg)](http://stable.melpa.org/#/%s))")
+                      (:orgmode . "[[http://stable.melpa.org/#/%s][file:http://stable.melpa.org/packages/%s.svg]]")))
+
+    )
+  "Template string alist for the Badges.")
 ;; §maybe: to custom
 
 (defun cask-package-toolset-badge-template (name syntax)
