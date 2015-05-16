@@ -62,5 +62,6 @@
 
 (ert-deftest cpt-travis-badge-org()
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
-        (travis-badge "[[https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el][file:https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el.svg]]"))
+        (travis-badge "[[https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el][file:https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el.svg]]")
+        (cask-package-toolset-badge-syntax :orgmode))
     (should (equal (cask-package-toolset-travis-badge repo-name) travis-badge))))

@@ -51,6 +51,15 @@
 (defvar cask-package-toolset-github-remote "origin"
   "Name of the Github remote.")
 
+(defvar cask-package-toolset-badge-syntax :markdown)
+
+(defconst cask-package-toolset-badge-templates-alist
+  '(
+    (:travis . ((:markdown . "")
+                (:orgmode . "[[https://travis-ci.org/%s][file:https://travis-ci.org/%s.svg]]")))
+    ))
+;; §maybe: to custom
+
 (defun cask-package-toolset-set-github-remote (remote)
   "Set github REMOTE."
   ;; §todo: check real remote
@@ -130,8 +139,9 @@ Note it remove enventual trailing .el"
 (defun cask-package-toolset-travis-badge (repositery-name)
   "Return a travis badge corresponding to the REPOSITERY-NAME."
   (unless (s-blank? repositery-name)
-    (format "[[https://travis-ci.org/%s][file:https://travis-ci.org/%s.svg]]"
+    (format (cdr (assoc cask-package-toolset-badge-syntax (assoc :travis cask-package-toolset-badge-templates-alist)))
             repositery-name repositery-name)))
+;; §maybe: syntax as argument? -> more testable BUT would have to check it... ()
 
 ;; §TODO: Badge generator: melpas, travis
 ;; §maybe: badge for cask conventions
