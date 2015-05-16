@@ -60,8 +60,14 @@
          "(cask-package-toolset :fetcher github :repo \"AdrieanKhisbe/cask-package-toolset.el\")"))
     (should (equal (cask-package-toolset-melpa-recipe repo-name) melpa-recipe))))
 
+(ert-deftest cpt-travis-badge-get-template-ok ()
+  (should (equal (cask-package-toolset-badge-template :travis :orgmode)
+                 "[[https://travis-ci.org/%s][file:https://travis-ci.org/%s.svg]]")))
+
+(ert-deftest cpt-travis-badge-get-template-ko ()
+  (should-error  (cask-package-toolset-badge-template :real :bullshit)))
+
 (ert-deftest cpt-travis-badge-org()
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
-        (travis-badge "[[https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el][file:https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el.svg]]")
-        (cask-package-toolset-badge-syntax :orgmode))
-    (should (equal (cask-package-toolset-travis-badge repo-name) travis-badge))))
+        (travis-badge "[[https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el][file:https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el.svg]]"))
+    (should (equal (cask-package-toolset-travis-badge repo-name :orgmode) travis-badge))))
