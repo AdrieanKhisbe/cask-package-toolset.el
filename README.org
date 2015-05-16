@@ -1,8 +1,8 @@
 * Cask Package Toolset
 
 [[https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el][file:https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el.svg]]
-[[http://melpa.org/#/cask-package-toolset][file:http://melpa.org/packages/cask-package-toolset.svg]]
-[[http://stable.melpa.org/#/cask-package-toolset][file:http://stable.melpa.org/packages/cask-package-toolset.svg]]
+[[http://melpa.org/#/cask-package-toolset][file:http://melpa.org/packages/cask-package-toolset-badge.svg]]
+[[http://stable.melpa.org/#/cask-package-toolset][file:http://stable.melpa.org/packages/cask-package-toolset-badge.svg]]
 
 /Continuous integration for EmacsLisp without pain!/
 
