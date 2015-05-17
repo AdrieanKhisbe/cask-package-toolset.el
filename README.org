@@ -23,6 +23,8 @@ Just add this has dependency to your =Cask= file
 ** Usage
 + View usage information:
   : $ cask exec package-toolset help
++ View package status:
+  : $ cask exec package-toolset status
 + Install all the tools
   : $ cask exec package-toolset install
 + Print the melpa recipe for your repositery

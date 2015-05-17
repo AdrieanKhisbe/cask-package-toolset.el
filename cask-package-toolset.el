@@ -201,6 +201,7 @@ Note it remove enventual trailing .el"
     (message (if (s-blank? melpa-recipe)
                  (ansi-red "We could not retrieve melpa recipe, specify the remote if origin does not refer to your github repositery.")
                melpa-recipe))))
+
 (defun cask-package-toolset-print-badges ()
   "Print Melpa Recipe."
   (let ((repositery-name (cask-package-toolset-github-repositery-name)))
@@ -210,6 +211,24 @@ Note it remove enventual trailing .el"
           (message (cask-package-toolset-melpa-badge repositery-name cask-package-toolset-badge-syntax))
           (message (cask-package-toolset-melpa-stable-badge repositery-name cask-package-toolset-badge-syntax)))
       (message (ansi-red "We could not retrieve melpa recipe, specify the remote if origin does not refer to your github repositery.")))))
+
+(defun cask-package-toolset-print-status()
+  "Print current status of the repositery"
+  (let ((print-reco (lambda (file status ok ko)
+                       ;; "Print the reco for FILE STATUS with OK and KO."
+                      (message "- %s: %s" file (if status ok ko))))
+        (print-lambda (lambda (it)(print-reco (car it) (cadr it) (caddr it) (cadddr it))))
+        (file-status `((".gitignore" ,(f-exists? ".gitignore")@ "Ok" "You should run `package-toolset'")
+                       ("Makefile" ,(f-exists? "Makefile") "Ok" "You should run `package-toolset'")
+                       (".travis.yml" ,(f-exists? ".travis.yml") "Ok" "You should run `package-toolset'")
+
+                          )
+                         ))
+    (-each file-status print-reco)))
+  ;; §todo: check installed templates.
+  ;; §todo: check installed ert -> reco
+  ;; §todo: check installed ecubes -> reco
+
 
 
 (commander
@@ -222,6 +241,7 @@ Note it remove enventual trailing .el"
  (option "--remote <remote>, -r <remote>" cask-package-toolset-set-github-remote)
  (option "--syntax <syntax>, -s <syntax>" cask-package-toolset-set-badge-syntax)
 
+ (command "status" cask-package-toolset-print-status)
  (command "install" cask-package-toolset-install-all-templates)
  (command "melpa-recipe" cask-package-toolset-print-melpa-recipe)
  (command "badge" cask-package-toolset-print-badges)
