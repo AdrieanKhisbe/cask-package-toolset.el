@@ -4,7 +4,7 @@
 
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Created:  2015-05-14
-;; Version: 0.3.1
+;; Version: 0.3.3
 ;; Keywords: convenience, tools
 ;; Url: http://github.com/AdrieanKhisbe/cask-package-toolset.el
 ;; Package-Requires: ((emacs "24") (cl-lib "0.3") (s "1.6.1") (dash "1.8.0") (f "0.10.0") (commander "0.2.0") (ansi "0.1.0") (shut-up "0.1.0") (magit "1.4.0"))
@@ -53,6 +53,9 @@
 
 (defvar cask-package-toolset-badge-syntax :markdown)
 
+(defvar cask-package-toolset-template-dir (f-expand "templates" (f-dirname (f-this-file)))
+  "Folder holding the package templates.")
+
 (defconst cask-package-toolset-badge-templates-alist
   '(
     (:travis . ((:html . "<a href=\"http://travis-ci.org/%s\"><img alt=\"Build Status\" src=\" https://travis-ci.org/%s.svg\"/></a>")
@@ -95,9 +98,6 @@ Throw exception if non existing!"
         nil)
     (progn (cask-package-toolset-copy-template template-name)
            t)))
-
-(defvar cask-package-toolset-template-dir (f-expand "templates")
-  "Folder holding the package templates.")
 
 (defun cask-package-toolset--template-path (template-name)
   "Return path for TEMPLATE-NAME."
