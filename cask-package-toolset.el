@@ -217,9 +217,8 @@ Note it remove enventual trailing .el"
   (let ((file-status
          `(
            ;; check installed templates.
-           (".gitignore" ,(f-exists? ".gitignore") "Ok" "You should run `package-toolset'")
-           ("Makefile" ,(f-exists? "Makefile") "Ok" "You should run `package-toolset'")
-           (".travis.yml" ,(f-exists? ".travis.yml") "Ok" "You should run `package-toolset'")
+           ,@(-map (lambda (file)(list file (f-exists? file) "You should run `package-toolset'"))
+                   cask-package-toolset-templates)
            ;; §todo: check installed ecubes -> reco
            ;; §todo: check installed ert -> reco
            )))
