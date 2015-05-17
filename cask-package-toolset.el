@@ -214,22 +214,19 @@ Note it remove enventual trailing .el"
 
 (defun cask-package-toolset-print-status()
   "Print current status of the repositery"
-  (let ((print-reco (lambda (file status ok ko)
-                       ;; "Print the reco for FILE STATUS with OK and KO."
-                      (message "- %s: %s" file (if status ok ko))))
-        (print-lambda (lambda (it)(print-reco (car it) (cadr it) (caddr it) (cadddr it))))
-        (file-status `((".gitignore" ,(f-exists? ".gitignore")@ "Ok" "You should run `package-toolset'")
-                       ("Makefile" ,(f-exists? "Makefile") "Ok" "You should run `package-toolset'")
-                       (".travis.yml" ,(f-exists? ".travis.yml") "Ok" "You should run `package-toolset'")
-
-                          )
-                         ))
-    (-each file-status print-reco)))
-  ;; §todo: check installed templates.
-  ;; §todo: check installed ert -> reco
-  ;; §todo: check installed ecubes -> reco
-
-
+  (let ((file-status
+         `(
+           ;; check installed templates.
+           (".gitignore" ,(f-exists? ".gitignore") "Ok" "You should run `package-toolset'")
+           ("Makefile" ,(f-exists? "Makefile") "Ok" "You should run `package-toolset'")
+           (".travis.yml" ,(f-exists? ".travis.yml") "Ok" "You should run `package-toolset'")
+           ;; §todo: check installed ecubes -> reco
+           ;; §todo: check installed ert -> reco
+           )))
+    (-each file-status
+      (lambda (it)
+        ;; §todo: justify
+        (message "- %s: %s" (car it) (if (cadr it) "Ok" (caddr it)))))))
 
 (commander
  (name "cask-package-toolset")
