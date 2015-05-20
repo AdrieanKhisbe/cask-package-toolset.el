@@ -67,10 +67,12 @@
     (:melpa-stable . ((:html . "<a href=\"http://stable.melpa.org/#/%s\"><img alt=\"MELPA Stable\" src=\"http://stable.melpa.org/packages/%s-badge.svg\"/></a>")
                       (:markdown . "[![MELPA stable](http://stable.melpa.org/packages/%s-badge.svg)](http://stable.melpa.org/#/%s))")
                       (:orgmode . "[[http://stable.melpa.org/#/%s][file:http://stable.melpa.org/packages/%s-badge.svg]]")))
-
+    (:licence . ((:html . "<a href=\"http://www.gnu.org/licenses/gpl-3.0.html\"><img alt=\"Licence\" src=\"http://img.shields.io/:license-gpl3-blue.svg/\"></a>")
+                 (:markdown . "[![License] (http://img.shields.io/:license-gpl3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)")
+                 (:orgmode . "[[http://www.gnu.org/licenses/gpl-3.0.html][http://img.shields.io/:license-gpl3-blue.svg]]")))
     )
   "Template string alist for the Badges.")
-;; §maybe: to custom
+;; §(message "FORMATSTRING" &optional ARGS)aybe: to custom
 
 (defun cask-package-toolset-badge-template (name syntax)
   "Return the template for NAME in specified SYNTAX.
@@ -228,7 +230,7 @@ Note it remove enventual trailing .el"
            )))
     (-each file-status
       (lambda (it)
-        (message "- %s →   %s" (s-pad-right 28 " " (ansi-blue (car it))) (if (nth 1 it) (ansi-green "Ok") (ansi-red (nth 2))))))))
+        (message "- %s →   %s" (s-pad-right 28 " " (ansi-blue (car it))) (if (nth 1 it) (ansi-green "Ok") (ansi-red (nth 2 it))))))))
 
 (commander
  (name "cask-package-toolset")
