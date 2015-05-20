@@ -70,6 +70,10 @@
     (:licence . ((:html . "<a href=\"http://www.gnu.org/licenses/gpl-3.0.html\"><img alt=\"Licence\" src=\"http://img.shields.io/:license-gpl3-blue.svg/\"></a>")
                  (:markdown . "[![License] (http://img.shields.io/:license-gpl3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)")
                  (:orgmode . "[[http://www.gnu.org/licenses/gpl-3.0.html][http://img.shields.io/:license-gpl3-blue.svg]]")))
+    (:gitter . ((:html . "<a href=\"https://gitter.im/%s\"><img alt=\"Join the chat\" src=\"https://badges.gitter.im/Join%%20Chat.svg\"></a>")
+                (:markdown . "[![Join the chat](https://badges.gitter.im/Join%%20Chat.svg)](https://gitter.im/%s)")
+                (:orgmode . "[[https://gitter.im/%s][file:https://badges.gitter.im/Join%%20Chat.svg]]")))
+    ;; note: %%20 for format protection. (prevent interpretation as format specifi)
     )
   "Template string alist for the Badges.")
 ;; §(message "FORMATSTRING" &optional ARGS)aybe: to custom
@@ -157,7 +161,7 @@ Note it remove enventual trailing .el"
     (format "(%s :fetcher github :repo \"%s\")"
             (cask-package-toolset-project-name repositery-name)
             repositery-name)))
-
+;; §todo: extract fun
 (defun cask-package-toolset-travis-badge (repositery-name syntax)
   "Return a travis badge corresponding to the REPOSITERY-NAME in specified SYNTAX."
   (unless (s-blank? repositery-name)
@@ -177,7 +181,18 @@ Note it remove enventual trailing .el"
     (let ((project-name (cask-package-toolset-project-name repositery-name)))
       (format (cask-package-toolset-badge-template :melpa-stable syntax)
               project-name project-name))))
-;; §maybe: badge for cask conventions
+;; §maybe: badge for cask conventions -> SEE
+
+(defun cask-package-toolset-gitter-badge (repositery-name syntax)
+  "Return a gitter  badge corresponding to the REPOSITERY-NAME in specified SYNTAX."
+  (unless (s-blank? repositery-name)
+    (let ((project-name (cask-package-toolset-project-name repositery-name))
+          (template (cask-package-toolset-badge-template :gitter syntax)))
+      (format template project-name))))
+
+(defun cask-package-toolset-licence-badge (syntax)
+  "Return a licence in specified SYNTAX."
+  (cask-package-toolset-badge-template :licence syntax))
 
 ;; Commands
 (defun cask-package-toolset-install-all-templates ()
@@ -211,7 +226,10 @@ Note it remove enventual trailing .el"
         (progn
           (message (cask-package-toolset-travis-badge repositery-name cask-package-toolset-badge-syntax))
           (message (cask-package-toolset-melpa-badge repositery-name cask-package-toolset-badge-syntax))
-          (message (cask-package-toolset-melpa-stable-badge repositery-name cask-package-toolset-badge-syntax)))
+          (message (cask-package-toolset-melpa-stable-badge repositery-name cask-package-toolset-badge-syntax))
+          (message (cask-package-toolset-licence-badge cask-package-toolset-badge-syntax))
+          (message (cask-package-toolset-gitter-badge repositery-name cask-package-toolset-badge-syntax))
+          )
       (message (ansi-red "We could not retrieve melpa recipe, specify the remote if origin does not refer to your github repositery.")))))
 
 (defun cask-package-toolset-print-status()
