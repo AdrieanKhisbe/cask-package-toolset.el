@@ -4,7 +4,7 @@
 
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Created:  2015-05-14
-;; Version: 0.4.1
+;; Version: 0.4.2
 ;; Keywords: convenience, tools
 ;; Url: http://github.com/AdrieanKhisbe/cask-package-toolset.el
 ;; Package-Requires: ((emacs "24") (cl-lib "0.3") (s "1.6.1") (dash "1.8.0") (f "0.10.0") (commander "0.2.0") (ansi "0.1.0") (shut-up "0.1.0") (magit "1.4.0"))
@@ -186,9 +186,7 @@ Note it remove enventual trailing .el"
 (defun cask-package-toolset-gitter-badge (repositery-name syntax)
   "Return a gitter  badge corresponding to the REPOSITERY-NAME in specified SYNTAX."
   (unless (s-blank? repositery-name)
-    (let ((project-name (cask-package-toolset-project-name repositery-name))
-          (template (cask-package-toolset-badge-template :gitter syntax)))
-      (format template project-name))))
+    (format (cask-package-toolset-badge-template :gitter syntax) repositery-name)))
 
 (defun cask-package-toolset-licence-badge (syntax)
   "Return a licence in specified SYNTAX."
@@ -224,11 +222,12 @@ Note it remove enventual trailing .el"
   (let ((repositery-name (cask-package-toolset-github-repositery-name)))
     (if repositery-name
         (progn
-          (message (cask-package-toolset-travis-badge repositery-name cask-package-toolset-badge-syntax))
-          (message (cask-package-toolset-melpa-badge repositery-name cask-package-toolset-badge-syntax))
-          (message (cask-package-toolset-melpa-stable-badge repositery-name cask-package-toolset-badge-syntax))
-          (message (cask-package-toolset-licence-badge cask-package-toolset-badge-syntax))
-          (message (cask-package-toolset-gitter-badge repositery-name cask-package-toolset-badge-syntax))
+          (message "%s" (cask-package-toolset-travis-badge repositery-name cask-package-toolset-badge-syntax))
+          (message "%s" (cask-package-toolset-melpa-badge repositery-name cask-package-toolset-badge-syntax))
+          (message "%s" (cask-package-toolset-melpa-stable-badge repositery-name cask-package-toolset-badge-syntax))
+          (message "%s" (cask-package-toolset-licence-badge cask-package-toolset-badge-syntax))
+          (message "%s" (cask-package-toolset-gitter-badge repositery-name cask-package-toolset-badge-syntax))
+          ;; note: lost 30 min: Not enough arguments for format string... (for gitterbadge %% quot)
           )
       (message (ansi-red "We could not retrieve melpa recipe, specify the remote if origin does not refer to your github repositery.")))))
 
