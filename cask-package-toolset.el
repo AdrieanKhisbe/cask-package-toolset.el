@@ -56,6 +56,9 @@
 (defvar cask-package-toolset-template-dir (f-expand "templates" (f-dirname (f-this-file)))
   "Folder holding the package templates.")
 
+(defvar cask-package-toolset-force nil
+  "Forcing the install or not.")
+
 (defconst cask-package-toolset-badge-templates-alist
   '(
     (:travis . ((:html . "<a href=\"http://travis-ci.org/%s\"><img alt=\"Build Status\" src=\" https://travis-ci.org/%s.svg\"/></a>")
@@ -94,6 +97,10 @@ Throw exception if non existing!"
   (if (-any? (lambda(s)(s-equals? s syntax)) '("html" "markdown" "orgmode"))
       (setq cask-package-toolset-badge-syntax (intern (s-concat ":" syntax)))
       (message (ansi-red (format "%s is not a syntax, keeping default" syntax)))))
+
+(defun cask-package-toolset-set-force ()
+  "Set force mode."
+  (setq cask-package-toolset-force t))
 
 (defun cask-package-toolset-install-template (template-name)
   "Install provided TEMPLATE-NAME."
@@ -285,6 +292,7 @@ Note it remove enventual trailing .el"
  (option "--help, -h" cask-package-toolset-usage) ; §todo: option specific help
  (option "--remote <remote>, -r <remote>" cask-package-toolset-set-github-remote)
  (option "--syntax <syntax>, -s <syntax>" cask-package-toolset-set-badge-syntax)
+ (option "--force, -f" cask-package-toolset-set-force)
 
  (command "status" cask-package-toolset-print-status)
  (command "install" cask-package-toolset-install-all-templates)
