@@ -41,6 +41,12 @@
     (cask-package-toolset-fill-template "void-template" '(("package-name" . "Emacs")))
     "Hello Emacs\n")))
 
+(ert-deftest cpt-install-test-template()
+  (within-sandbox
+   (cask-package-toolset-install-test-template "titi-toto")
+   (should (f-exists? (f-expand "test/test-helper.el")))
+   (should (f-exists? (f-expand "test/titi-toto-test.el")))))
+
 ;; Extractors
 
 (ert-deftest cpt-github-url()
@@ -90,7 +96,7 @@
 
 (ert-deftest cask-package-toolset-set-badge-syntax-ko()
   (shut-up (cask-package-toolset-set-badge-syntax "junk"))
-  (should (equal cask-package-toolset-badge-syntax :markdown )))
+  (should (equal cask-package-toolset-badge-syntax :markdown)))
 
 (ert-deftest cask-package-toolset-set-badge-syntax-ok()
   (cask-package-toolset-set-badge-syntax "orgmode")

@@ -124,11 +124,17 @@ Throw exception if non existing!"
         (error "File already existing %s" destination-file)
       (f-copy template-file destination-file))))
 
-(defun cask-package-toolset-install-test-template ()
-
-
-; f-read-test
-  )
+(defun cask-package-toolset-install-test-template (package-name)
+  "Install the test templates for the PACKAGE-NAME."
+  ;; §see: force argument? (for now suppose ok)
+  (let ((data `(("package-name" . ,package-name))))
+    (f-mkdir "test")
+    (f-write-text (cask-package-toolset-fill-template "test/test-helper.el" data)
+                  last-coding-system-used
+                  "test/test-helper.el")
+    (f-write-text (cask-package-toolset-fill-template "test/package-test.el" data)
+                  last-coding-system-used
+                 (format "test/%s-test.el" package-name))))
 
 (defun cask-package-toolset-fill-template (template-path data)
   "Return filled the template located at TEMPLATE-PATH populated with DATA."
