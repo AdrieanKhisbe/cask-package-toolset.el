@@ -6,7 +6,6 @@
 [[http://www.gnu.org/licenses/gpl-3.0.html][file:http://img.shields.io/:license-gpl3-blue.svg]]
 
 
-
 /Continuous integration for EmacsLisp without pain!/
 
 ** About
@@ -34,8 +33,8 @@ Just add this has dependency to your =Cask= file
   : $ cask exec package-toolset melpa-recipe
 + Print the badges for the =README=
   : $ cask exec package-toolset badge
-
-# TODO: add command to ensure test/ecukes. or print message while installing
++ Setup unit test with ert:
+  : $ cask exec package-toolset setup-ert
 
 *** Options
 + in case your =origin= remote is not targeting your github repositery, you can specify it with the =-r <remote>= or =--remote <remote>= option
@@ -52,7 +51,7 @@ Here is the set of file to set this up.
 
 ** Notes
 
-This is still a prototype. If POC is working, happen to be usefull, (/will personnaly use it to "toolsettize" personnage package I built but not yet made public/)
+This is still a prototype. If POC is working, happen to be usefull to other persons than just me, (/I personnaly used it to "toolsettize" mine package I built but not yet made public/)
 I will see with the =Cask= team to incorporate it to make it helpful to the comunity, and help promote use of integration and tests.
 
 *If you have any remark, refactor suggestion or else, just pose an issue ;)*
