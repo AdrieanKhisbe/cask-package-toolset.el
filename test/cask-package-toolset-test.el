@@ -35,6 +35,12 @@
    (should (-all? (lambda (file) (f-exists? file))
                   cask-package-toolset-templates))))
 
+(ert-deftest cpt-fill-template()
+  (should
+   (equal
+    (cask-package-toolset-fill-template "void-template" '(("package-name" . "Emacs")))
+    "Hello Emacs\n")))
+
 ;; Extractors
 
 (ert-deftest cpt-github-url()
@@ -74,7 +80,7 @@
 
 (ert-deftest cpt-melpa-badge-markdown()
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
-        (melpa-badge "[![MELPA](http://melpa.org/packages/cask-package-toolset-badge.svg)](http://melpa.org/#/cask-package-toolset))"))
+        (melpa-badge "[![MELPA](http://melpa.org/packages/cask-package-toolset-badge.svg)](http://melpa.org/#/cask-package-toolset)"))
     (should (equal (cask-package-toolset-melpa-badge repo-name :markdown) melpa-badge))))
 
 (ert-deftest cpt-melpa-stable-badge-html()

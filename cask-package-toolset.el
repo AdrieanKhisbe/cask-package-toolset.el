@@ -76,7 +76,7 @@
     ;; note: %%20 for format protection. (prevent interpretation as format specifi)
     )
   "Template string alist for the Badges.")
-;; §(message "FORMATSTRING" &optional ARGS)aybe: to custom
+;; §maybe: replace with custom
 
 (defun cask-package-toolset-badge-template (name syntax)
   "Return the template for NAME in specified SYNTAX.
@@ -123,6 +123,20 @@ Throw exception if non existing!"
     (if (f-exists? destination-file)
         (error "File already existing %s" destination-file)
       (f-copy template-file destination-file))))
+
+(defun cask-package-toolset-install-test-template ()
+
+
+; f-read-test
+  )
+
+(defun cask-package-toolset-fill-template (template-path data)
+  "Return filled the template located at TEMPLATE-PATH populated with DATA."
+  ;;; §maybe: add argument to retrieve what we need
+  (let ((template-file (cask-package-toolset--template-path template-path)))
+    (unless (f-exists? template-file)
+      (error "Template %s not found" template-path))
+    (s-format (f-read-text template-file) 'aget data)))
 
 ;; Project Property extractors
 
@@ -217,6 +231,13 @@ Note it remove enventual trailing .el"
                  (ansi-red "We could not retrieve melpa recipe, specify the remote if origin does not refer to your github repositery.")
                melpa-recipe))))
 
+(defun cask-package-toolset-setup-test()
+  ;; §note: pour l'instant juste passe plat
+  (cask-package-toolset-install-test-template)
+  ;; §todo: check non existing.
+  ;; §later: force argument
+  )
+
 (defun cask-package-toolset-print-badges ()
   "Print Melpa Recipe."
   (let ((repositery-name (cask-package-toolset-github-repositery-name)))
@@ -264,6 +285,7 @@ Note it remove enventual trailing .el"
  (command "melpa-recipe" cask-package-toolset-print-melpa-recipe)
  (command "badge" cask-package-toolset-print-badges)
  (command "git" cask-package-toolset-print-github-remote)
+ (command "setup-test" cask-package-toolset-setup-test)
  (command "help" cask-package-toolset-usage))
 
 
