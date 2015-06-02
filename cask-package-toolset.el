@@ -249,10 +249,14 @@ Note it remove enventual trailing .el"
   "Install Ert tests if not yet existing"
   (let ((package-name (cask-package-toolset-project-name
                        (cask-package-toolset-github-repositery-name))))
-    (if (or (not (f-exists? (f-expand "test")))
-            cask-package-toolset-force)
-        (cask-package-toolset-install-test-template package-name)
-      (message (ansi-red "Some test file already exist. If you want to erase them, add --force option")))))
+    (if (s-blank? package-name)
+       (message (ansi-red "We could not retrieve project-name from github repo, specify the remote if origin does not refer to your github repositery."))
+        (if (or (not (f-exists? (f-expand "test")))
+                cask-package-toolset-force)
+            (progn
+              (cask-package-toolset-install-test-template package-name)
+              (message (ansi-green "Ert Scaffold files generated")))
+          (message (ansi-red "Some test file already exist. If you want to erase them, add --force option"))))))
 
 (defun cask-package-toolset-print-badges ()
   "Print Melpa Recipe."
