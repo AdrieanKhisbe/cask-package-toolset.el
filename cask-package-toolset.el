@@ -152,7 +152,7 @@ Throw exception if non existing!"
     (s-format (f-read-text template-file) 'aget data)))
 
 ;; Project Property extractors
-
+;; §todo: maybe: set as a variable
 (defun cask-package-toolset-github-repositery-name()
   (let ((remote-name (magit-get "remote" cask-package-toolset-github-remote "url")))
     ;; §todo: relace origin with variable
@@ -188,6 +188,7 @@ Note it remove enventual trailing .el"
     (format "(%s :fetcher github :repo \"%s\")"
             (cask-package-toolset-project-name repositery-name)
             repositery-name)))
+
 ;; §todo: extract fun
 (defun cask-package-toolset-travis-badge (repositery-name syntax)
   "Return a travis badge corresponding to the REPOSITERY-NAME in specified SYNTAX."
@@ -245,11 +246,13 @@ Note it remove enventual trailing .el"
                melpa-recipe))))
 
 (defun cask-package-toolset-setup-test()
-  ;; §note: pour l'instant juste passe plat
-  (cask-package-toolset-install-test-template)
-  ;; §todo: check non existing.
-  ;; §later: force argument
-  )
+  "Install Ert tests if not yet existing"
+  (let ((package-name (cask-package-toolset-project-name
+                       (cask-package-toolset-github-repositery-name))))
+    (if (or (not (f-exists? (f-expand "test")))
+            cask-package-toolset-force)
+        (cask-package-toolset-install-test-template package-name)
+      (message (ansi-red "Some test file already exist. If you want to erase them, add --force option")))))
 
 (defun cask-package-toolset-print-badges ()
   "Print Melpa Recipe."
@@ -295,11 +298,11 @@ Note it remove enventual trailing .el"
  (option "--force, -f" cask-package-toolset-set-force)
 
  (command "status" cask-package-toolset-print-status)
- (command "install" cask-package-toolset-install-all-templates)
+ (command "install" cask-package-toolset-install-all-templates) ; maybe alias to setup
  (command "melpa-recipe" cask-package-toolset-print-melpa-recipe)
  (command "badge" cask-package-toolset-print-badges)
  (command "git" cask-package-toolset-print-github-remote)
- (command "setup-test" cask-package-toolset-setup-test)
+ (command "setup-ert" cask-package-toolset-setup-test)
  (command "help" cask-package-toolset-usage))
 
 
