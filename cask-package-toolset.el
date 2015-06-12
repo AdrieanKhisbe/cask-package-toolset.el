@@ -4,7 +4,7 @@
 
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Created:  2015-05-14
-;; Version: 0.5
+;; Version: 0.5.1
 ;; Keywords: convenience, tools
 ;; Url: http://github.com/AdrieanKhisbe/cask-package-toolset.el
 ;; Package-Requires: ((emacs "24") (cl-lib "0.3") (s "1.6.1") (dash "1.8.0") (f "0.10.0") (commander "0.2.0") (ansi "0.1.0") (shut-up "0.1.0") (magit "1.4.0"))
@@ -62,7 +62,7 @@
 (defconst cask-package-toolset-badge-templates-alist
   '(
     (:travis . ((:html . "<a href=\"http://travis-ci.org/%s\"><img alt=\"Build Status\" src=\" https://travis-ci.org/%s.svg\"/></a>")
-                (:markdown . "[![Build Status](https://travis-ci.org/%s.el.svg)](https://travis-ci.org/%s)")
+                (:markdown . "[![Build Status](https://travis-ci.org/%s.svg)](https://travis-ci.org/%s)")
                 (:orgmode . "[[https://travis-ci.org/%s][file:https://travis-ci.org/%s.svg]]")))
     (:melpa . ((:html . "<a href=\"http://melpa.org/#/%s\"><img alt=\"MELPA\" src=\"http://melpa.org/packages/%s-badge.svg\"/></a>")
                (:markdown . "[![MELPA](http://melpa.org/packages/%s-badge.svg)](http://melpa.org/#/%s)")
