@@ -29,6 +29,7 @@
 ;; §note: very very inspired of ecukes. (might be a good idea to generalize into an espurd)
 
 ;; cask exec bin/package-toolset
+;; §note: was tweak to enable coverage info to be collected!
 (When "^I run package-toolset \"\\([^\"]*\\)\"$"
   (lambda (command)
     (let* ((buffer-name "*cpt-output*")
@@ -41,19 +42,16 @@
            (args
             (unless (equal command "")
               (s-split " " command)))
-           (exit-code
-
-            (apply
-             'call-process
-             (append (list cask-package-toolset-executable nil buffer nil) args))))
-            ; 'call-process
-            ; `(,cask-package-toolset-executable nil buffer nil ,@args))))
+           (commander-ignore nil))
+      (noflet ((message (msg &rest args)
+                        (with-current-buffer buffer
+                          (insert (apply #'format msg args))
+                          (newline))))
+               (commander-parse args))
       (with-current-buffer buffer
         (let ((content (ansi-color-filter-apply  (buffer-string))))
-          (cond ((= exit-code 0)
-                 (setq cask-package-toolset-stdout content))
-                (t
-                 (setq cask-package-toolset-stderr content))))))))
+          ;;(cond ((= exit-code 0) ; §later: see how to handle error?
+                 (setq cask-package-toolset-stdout content))))))
 
 (Then "^I should see command output:$"
       (lambda (expected)

@@ -1,4 +1,5 @@
 (require 'f)
+(require 'noflet)
 
 (defvar cask-package-toolset-support-path
   (f-dirname load-file-name))
@@ -28,6 +29,9 @@
 (undercover "*.el" "cask-package-toolset/*.el"
             (:exclude "*-test.el")
             (:report-file "/tmp/undercover-report.json"))
+
+(defvar commander-ignore t
+  "With this prevent commander to run without asking")
 (require 'cask-package-toolset)
 (require 'espuds)
 (require 'ert)
