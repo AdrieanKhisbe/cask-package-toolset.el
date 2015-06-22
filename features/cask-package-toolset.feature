@@ -78,7 +78,7 @@ Feature: Set up Continous integration for my Library
        """
 
   Scenario: Trying to setup ert when already done
-    When I run package-toolset "setup-ert"
+    When I run package-toolset "setup-ert -g cask/cask.el"
     Then I should see command output:
        """
        Some test file already exist. If you want to erase them, add --force option
