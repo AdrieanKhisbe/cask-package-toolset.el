@@ -11,6 +11,8 @@
 
 (add-to-list 'load-path cask-package-toolset-root-path)
 
+(require 'undercover)
+(undercover "*.el" "cask-package-toolset/*.el" (:exclude "*-test.el"))
 (require 'cask-package-toolset)
 (require 'espuds)
 (require 'ert)

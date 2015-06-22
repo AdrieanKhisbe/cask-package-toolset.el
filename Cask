@@ -8,4 +8,5 @@
  (depends-on "ecukes")
  (depends-on "ert-runner")
  (depends-on "el-mock")
- (depends-on "ansi"))
+ (depends-on "ansi")
+ (depends-on "undercover"))
