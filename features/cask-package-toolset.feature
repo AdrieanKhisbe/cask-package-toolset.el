@@ -62,3 +62,24 @@ Feature: Set up Continous integration for my Library
        Help yourself, we'll help you.
        """
        # §FIXME do a real help 
+
+  Scenario: Get melpa recipe 
+    When I run package-toolset "melpa-recipe -g cask/cask"
+    Then I should see command output:
+       """
+       (cask :fetcher github :repo "cask/cask")
+       """
+
+  Scenario: Get melpa recipe with trailing .el
+    When I run package-toolset "melpa-recipe -g cask/cask.el"
+    Then I should see command output:
+       """
+       (cask :fetcher github :repo "cask/cask.el")
+       """
+
+  Scenario: Trying to setup ert when already done
+    When I run package-toolset "setup-ert"
+    Then I should see command output:
+       """
+       Some test file already exist. If you want to erase them, add --force option
+       """
