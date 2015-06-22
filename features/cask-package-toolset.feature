@@ -32,7 +32,7 @@ Feature: Set up Continous integration for my Library
 
 
   Scenario: Trying to print the badge with default syntax 
-    When I run package-toolset "badge"
+    When I run package-toolset "badge -g AdrieanKhisbe/cask-package-toolset.el"
     Then I should see command output:
        """
        [![Build Status](https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el.svg)](https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el)
@@ -43,7 +43,7 @@ Feature: Set up Continous integration for my Library
        """
 
   Scenario: Trying to print the badge with orgmode syntax
-    When I run package-toolset "badge -s orgmode"
+    When I run package-toolset "badge -s orgmode -g AdrieanKhisbe/cask-package-toolset.el"
     Then I should see command output:
        """
        [[https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el][file:https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el.svg]]
