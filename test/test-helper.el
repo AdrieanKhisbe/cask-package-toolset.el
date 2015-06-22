@@ -32,7 +32,7 @@
 (require 's)
 (require 'dash)
 (require 'undercover)
-(undercover "*.el" "cask-package-toolset/*.el" (:exclude "*-test.el"))
+(undercover "*.el" "cask-package-toolset/*.el" (:exclude "*-test.el") (:send-report nil))
 (require 'cask-package-toolset (f-expand "cask-package-toolset" cpt-root-path))
 
 (provide 'test-helper)
