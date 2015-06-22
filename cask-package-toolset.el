@@ -51,6 +51,9 @@
 (defvar cask-package-toolset-github-remote "origin"
   "Name of the Github remote.")
 
+(defvar cask-package-toolset-github-repositery nil
+  "Name of the Github repositery.")
+
 (defvar cask-package-toolset-badge-syntax :markdown)
 
 (defvar cask-package-toolset-template-dir (f-expand "templates" (f-dirname (f-this-file)))
@@ -86,6 +89,11 @@
 Throw exception if non existing!"
   (let ((result (cdr (assoc syntax (assoc name cask-package-toolset-badge-templates-alist)))))
     (if result result (error "%s and %s are not valid template key" name syntax))))
+
+(defun cask-package-toolset-set-github-repositery (repo)
+  "Set github REPO."
+  ;; §todo: check real repo
+  (setq cask-package-toolset-github-repositery repo))
 
 (defun cask-package-toolset-set-github-remote (remote)
   "Set github REMOTE."
@@ -154,15 +162,15 @@ Throw exception if non existing!"
 ;; Project Property extractors
 ;; §todo: maybe: set as a variable
 (defun cask-package-toolset-github-repositery-name()
-  (let ((remote-name (magit-get "remote" cask-package-toolset-github-remote "url")))
-    ;; §todo: relace origin with variable
-    (when (s-contains? "github" remote-name)
-      (s-chop-suffix
-       ".git"
-       (if (s-starts-with? "git" remote-name)
-           (nth 1 (s-split ":" remote-name)) ; git protocol
-         (nth 1 (s-split ".com/" remote-name))))))) ; http
-;;§todo: mock for test
+  (if cask-package-toolset-github-repositery cask-package-toolset-github-repositery
+    (let ((remote-name (magit-get "remote" cask-package-toolset-github-remote "url")))
+      ;; §todo: relace origin with variable
+      (when (s-contains? "github" remote-name)
+        (s-chop-suffix
+         ".git"
+         (if (s-starts-with? "git" remote-name)
+             (nth 1 (s-split ":" remote-name)) ; git protocol
+           (nth 1 (s-split ".com/" remote-name)))))))) ; http
 
 (defun cask-package-toolset-github-url (repositery-name)
   "Return the github url from REPOSITERY-NAME."
@@ -297,6 +305,7 @@ Note it remove enventual trailing .el"
  (default cask-package-toolset-noop)
 
  (option "--help, -h" cask-package-toolset-usage) ; §todo: option specific help
+ (option "--github-repo <repo>, -g <repo>" cask-package-toolset-set-github-repositery)
  (option "--remote <remote>, -r <remote>" cask-package-toolset-set-github-remote)
  (option "--syntax <syntax>, -s <syntax>" cask-package-toolset-set-badge-syntax)
  (option "--force, -f" cask-package-toolset-set-force)

@@ -101,3 +101,6 @@
 (ert-deftest cask-package-toolset-set-badge-syntax-ok()
   (cask-package-toolset-set-badge-syntax "orgmode")
   (should (equal cask-package-toolset-badge-syntax :orgmode)))
+
+
+;; §todo: should check githubrepo workig when just mocking remote name (magit call)

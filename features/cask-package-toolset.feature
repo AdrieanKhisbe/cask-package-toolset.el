@@ -21,6 +21,16 @@ Feature: Set up Continous integration for my Library
        - Ecukes Features     →   Ok
        """
 
+
+  Scenario: Specy github repo
+    When I run package-toolset "git --github-repo ab/cd"
+    Then I should see command output:
+       """
+       ab/cd
+       """
+       # github repo was added to mock repo when git not available (for ci...)
+
+
   Scenario: Trying to print the badge with default syntax 
     When I run package-toolset "badge"
     Then I should see command output:
