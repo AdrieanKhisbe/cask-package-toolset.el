@@ -1,11 +1,11 @@
-Feature: Do Some things
-  In order to do something
-  As a user
-  I want to do something
+Feature: Set up Continous integration for my Library
+  In order to have 
+  As an emacs developer
+  I want to do set CI without hassle
 
-  Scenario: Do Something
-    Given I have "something"
-    When I have "something"
-    Then I should have "something"
-    And I should have "something"
-    But I should not have "something"
+  Scenario: Just run the command
+    When I run package-toolset ""
+    Then I should see command output:
+       """
+       Give us a command. install for instance, or consult usage with help
+       """

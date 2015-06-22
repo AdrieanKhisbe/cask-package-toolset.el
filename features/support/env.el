@@ -9,6 +9,19 @@
 (defvar cask-package-toolset-root-path
   (f-parent cask-package-toolset-features-path))
 
+(defvar cask-package-toolset-bin-path
+  (f-expand "bin" cask-package-toolset-root-path))
+
+(defvar cask-package-toolset-executable
+  (f-expand "package-toolset" cask-package-toolset-bin-path))
+
+;; §todo: set it with a given!
+(defvar cask-package-toolset-project-path
+  cask-package-toolset-root-path)
+
+(defvar cask-package-toolset-stderr)
+(defvar cask-package-toolset-stdout)
+
 (add-to-list 'load-path cask-package-toolset-root-path)
 
 (require 'undercover)

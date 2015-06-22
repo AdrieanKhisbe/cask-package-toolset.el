@@ -26,3 +26,42 @@
   (lambda (something)
     ;; ...
     ))
+;; §note: very very inspired of ecukes. (might be a good idea to generalize into an espurd)
+
+;; cask exec bin/package-toolset
+(When "^I run package-toolset \"\\([^\"]*\\)\"$"
+  (lambda (command)
+    (let* ((buffer-name "*cpt-output*")
+           (buffer
+            (progn
+              (when (get-buffer buffer-name)
+                (kill-buffer buffer-name))
+              (get-buffer-create buffer-name)))
+           (default-directory (file-name-as-directory cask-package-toolset-project-path))
+           (args
+            (unless (equal command "")
+              (s-split " " command)))
+           (exit-code
+
+            (apply
+             'call-process
+             (append (list cask-package-toolset-executable nil buffer nil) args))))
+            ; 'call-process
+            ; `(,cask-package-toolset-executable nil buffer nil ,@args))))
+      (with-current-buffer buffer
+        (let ((content (ansi-color-filter-apply  (buffer-string))))
+          (cond ((= exit-code 0)
+                 (setq cask-package-toolset-stdout content))
+                (t
+                 (setq cask-package-toolset-stderr content))))))))
+
+(Then "^I should see command output:$"
+      (lambda (expected)
+        (cask-package-toolset-should-match expected cask-package-toolset-stdout)))
+
+(Then "^I should see command error:$"
+      (lambda (expected)
+        (cask-package-toolset-should-match expected cask-package-toolset-stderr)))
+
+(defun cask-package-toolset-should-match (needle haystack)
+  (should (s-contains? needle haystack)))
