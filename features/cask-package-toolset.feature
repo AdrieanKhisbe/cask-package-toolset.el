@@ -1,5 +1,5 @@
 Feature: Set up Continous integration for my Library
-  In order to have 
+  In order to have
   As an emacs developer
   I want to do set CI without hassle
 
@@ -31,7 +31,7 @@ Feature: Set up Continous integration for my Library
        # github repo was added to mock repo when git not available (for ci...)
 
 
-  Scenario: Trying to print the badge with default syntax 
+  Scenario: Trying to print the badge with default syntax
     When I run package-toolset "badge -g AdrieanKhisbe/cask-package-toolset.el"
     Then I should see command output:
        """
@@ -59,15 +59,7 @@ Feature: Set up Continous integration for my Library
 
 # TODO: with non existing remote.
 
-  Scenario: Print help
-    When I run package-toolset "help"
-    Then I should see command output:
-       """
-       Help yourself, we'll help you.
-       """
-       # §FIXME do a real help 
-
-  Scenario: Get melpa recipe 
+  Scenario: Get melpa recipe
     When I run package-toolset "melpa-recipe -g cask/cask"
     Then I should see command output:
        """

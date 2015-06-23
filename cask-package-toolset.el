@@ -4,7 +4,7 @@
 
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Created:  2015-05-14
-;; Version: 0.6.1
+;; Version: 0.6.2
 ;; Keywords: convenience, tools
 ;; Url: http://github.com/AdrieanKhisbe/cask-package-toolset.el
 ;; Package-Requires: ((emacs "24") (cl-lib "0.3") (s "1.6.1") (dash "1.8.0") (f "0.10.0") (commander "0.2.0") (ansi "0.1.0") (shut-up "0.1.0") (magit "1.4.0"))
@@ -255,10 +255,6 @@ Note it remove enventual trailing .el"
   (-each cask-package-toolset-templates
     (lambda (template) (cask-package-toolset-install-template template))))
 
-(defun cask-package-toolset-usage ()
-  "Print Help for package toolset."
-  (message (ansi-green "Help yourself, we'll help you.")))
-
 (defun cask-package-toolset-noop ()
   "Invite to specify a command."
   (message (ansi-blue "Give us a command. install for instance, or consult usage with help")))
@@ -336,20 +332,21 @@ Note it remove enventual trailing .el"
  (config ".cask-package-toolset")
  (default cask-package-toolset-noop)
 
- (option "--help, -h" cask-package-toolset-usage) ; §todo: option specific help
  (option "--github-repo <repo>, -g <repo>" cask-package-toolset-set-github-repositery)
  (option "--remote <remote>, -r <remote>" cask-package-toolset-set-github-remote)
  (option "--syntax <syntax>, -s <syntax>" cask-package-toolset-set-badge-syntax)
  (option "--force, -f" cask-package-toolset-set-force)
+ (option "--help, -h" commander-print-usage) ; §todo: option specific help
 
- (command "status" cask-package-toolset-print-status)
- (command "install" cask-package-toolset-install-all-templates) ; maybe alias to setup
- (command "melpa-recipe" cask-package-toolset-print-melpa-recipe)
- (command "badge" cask-package-toolset-print-badges)
- (command "git" cask-package-toolset-print-github-remote)
- (command "setup-ert" cask-package-toolset-setup-test)
- (command "setup-undercover" cask-package-toolset-print-setup-coverage)
- (command "help" cask-package-toolset-usage))
+ (command "status" "CI status of your package" cask-package-toolset-print-status)
+ (command "install" "Install basic template for CI" cask-package-toolset-install-all-templates)
+ (command "setup" "Install basic template for CI" cask-package-toolset-install-all-templates)
+ (command "setup-ert" "Setup ert test structure" cask-package-toolset-setup-test)
+ (command "setup-undercover" "Print snippets of code to set up coverage" cask-package-toolset-print-setup-coverage)
+ (command "badge" "Print badges to add to your READLE" cask-package-toolset-print-badges)
+ (command "melpa-recipe" "Print recipe for melpa" cask-package-toolset-print-melpa-recipe)
+ (command "git" "Print deduced github remote" cask-package-toolset-print-github-remote)
+ (command "help" "Show usage information" commander-print-usage))
 
 
 (provide 'cask-package-toolset)

@@ -3,9 +3,6 @@
 
 ;; §todo: make quiet test
 
-(ert-deftest cpt-usage ()
-  (should-not (s-blank? (cask-package-toolset-usage))))
-
 (ert-deftest cpt-copy-template-non-existing-file ()
   (let ((file-name "void") )
     (within-sandbox
