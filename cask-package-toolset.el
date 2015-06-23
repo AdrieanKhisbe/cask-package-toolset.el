@@ -79,6 +79,9 @@
     (:gitter . ((:html . "<a href=\"https://gitter.im/%s\"><img alt=\"Join the chat\" src=\"https://badges.gitter.im/Join%%20Chat.svg\"></a>")
                 (:markdown . "[![Join the chat](https://badges.gitter.im/Join%%20Chat.svg)](https://gitter.im/%s)")
                 (:orgmode . "[[https://gitter.im/%s][file:https://badges.gitter.im/Join%%20Chat.svg]]")))
+    (:coveralls . ((:html . "<a href=\"https://coveralls.io/r/%s\"><img alt=\"Coverage Status\" src=\"https://coveralls.io/repos/%s/badge.svg)\"/></a>")
+                   (:markdown . "[![Coverage Status](https://coveralls.io/repos/%s/badge.svg)](https://coveralls.io/r/%s)")
+                   (:orgmode . "[[https://coveralls.io/r/%s][file:https://coveralls.io/repos/%s/badge.svg)]]")))
     ;; note: %%20 for format protection. (prevent interpretation as format specifi)
     )
   "Template string alist for the Badges.")
@@ -228,6 +231,12 @@ Note it remove enventual trailing .el"
   "Return a licence in specified SYNTAX."
   (cask-package-toolset-badge-template :licence syntax))
 
+(defun cask-package-toolset-coveralls-badge (repositery-name syntax)
+  "Return a gitter  badge corresponding to the REPOSITERY-NAME in specified SYNTAX."
+  (unless (s-blank? repositery-name)
+    (format (cask-package-toolset-badge-template :coveralls syntax)
+            repositery-name repositery-name)))
+
 ;; Commands
 (defun cask-package-toolset-install-all-templates ()
   "Install all the packages.  (from `cask-package-toolset-templates')."
@@ -272,6 +281,7 @@ Note it remove enventual trailing .el"
     (if repositery-name
         (progn
           (message "%s" (cask-package-toolset-travis-badge repositery-name cask-package-toolset-badge-syntax))
+          (message "%s" (cask-package-toolset-coveralls-badge repositery-name cask-package-toolset-badge-syntax))
           (message "%s" (cask-package-toolset-melpa-badge repositery-name cask-package-toolset-badge-syntax))
           (message "%s" (cask-package-toolset-melpa-stable-badge repositery-name cask-package-toolset-badge-syntax))
           (message "%s" (cask-package-toolset-licence-badge cask-package-toolset-badge-syntax))

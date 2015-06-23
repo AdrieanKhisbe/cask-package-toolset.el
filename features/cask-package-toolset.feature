@@ -36,6 +36,7 @@ Feature: Set up Continous integration for my Library
     Then I should see command output:
        """
        [![Build Status](https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el.svg)](https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el)
+       [![Coverage Status](https://coveralls.io/repos/AdrieanKhisbe/cask-package-toolset.el/badge.svg)](https://coveralls.io/r/AdrieanKhisbe/cask-package-toolset.el)
        [![MELPA](http://melpa.org/packages/cask-package-toolset-badge.svg)](http://melpa.org/#/cask-package-toolset)
        [![MELPA stable](http://stable.melpa.org/packages/cask-package-toolset-badge.svg)](http://stable.melpa.org/#/cask-package-toolset)
        [![License] (http://img.shields.io/:license-gpl3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
@@ -47,6 +48,7 @@ Feature: Set up Continous integration for my Library
     Then I should see command output:
        """
        [[https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el][file:https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el.svg]]
+       [[https://coveralls.io/r/AdrieanKhisbe/cask-package-toolset.el][file:https://coveralls.io/repos/AdrieanKhisbe/cask-package-toolset.el/badge.svg)]]
        [[http://melpa.org/#/cask-package-toolset][file:http://melpa.org/packages/cask-package-toolset-badge.svg]]
        [[http://stable.melpa.org/#/cask-package-toolset][file:http://stable.melpa.org/packages/cask-package-toolset-badge.svg]]
        [[http://www.gnu.org/licenses/gpl-3.0.html][http://img.shields.io/:license-gpl3-blue.svg]]
