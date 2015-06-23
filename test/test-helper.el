@@ -28,6 +28,9 @@
      ,@body
      (f-delete default-directory :force)))
 
+(defvar commander-ignore t
+  "With this prevent commander to run without asking")
+
 (require 'ert)
 (require 's)
 (require 'dash)
