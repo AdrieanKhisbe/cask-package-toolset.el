@@ -39,6 +39,7 @@ Feature: Set up Continous integration for my Library
        [![Coverage Status](https://coveralls.io/repos/AdrieanKhisbe/cask-package-toolset.el/badge.svg)](https://coveralls.io/r/AdrieanKhisbe/cask-package-toolset.el)
        [![MELPA](http://melpa.org/packages/cask-package-toolset-badge.svg)](http://melpa.org/#/cask-package-toolset)
        [![MELPA stable](http://stable.melpa.org/packages/cask-package-toolset-badge.svg)](http://stable.melpa.org/#/cask-package-toolset)
+       [![Tag Version](https://img.shields.io/github/tag/AdrieanKhisbe/cask-package-toolset.el.svg)](https://github.com/AdrieanKhisbe/cask-package-toolset.el/tags)
        [![License] (http://img.shields.io/:license-gpl3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
        [![Join the chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/AdrieanKhisbe/cask-package-toolset.el)
        """
@@ -51,6 +52,7 @@ Feature: Set up Continous integration for my Library
        [[https://coveralls.io/r/AdrieanKhisbe/cask-package-toolset.el][file:https://coveralls.io/repos/AdrieanKhisbe/cask-package-toolset.el/badge.svg]]
        [[http://melpa.org/#/cask-package-toolset][file:http://melpa.org/packages/cask-package-toolset-badge.svg]]
        [[http://stable.melpa.org/#/cask-package-toolset][file:http://stable.melpa.org/packages/cask-package-toolset-badge.svg]]
+       [[https://github.com/AdrieanKhisbe/cask-package-toolset.el/tags][file:https://img.shields.io/github/tag/AdrieanKhisbe/cask-package-toolset.el.svg]]
        [[http://www.gnu.org/licenses/gpl-3.0.html][http://img.shields.io/:license-gpl3-blue.svg]]
        [[https://gitter.im/AdrieanKhisbe/cask-package-toolset.el][file:https://badges.gitter.im/Join%20Chat.svg]]
        """

@@ -4,7 +4,7 @@
 
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Created:  2015-05-14
-;; Version: 0.6
+;; Version: 0.6.1
 ;; Keywords: convenience, tools
 ;; Url: http://github.com/AdrieanKhisbe/cask-package-toolset.el
 ;; Package-Requires: ((emacs "24") (cl-lib "0.3") (s "1.6.1") (dash "1.8.0") (f "0.10.0") (commander "0.2.0") (ansi "0.1.0") (shut-up "0.1.0") (magit "1.4.0"))
@@ -62,6 +62,7 @@
 (defvar cask-package-toolset-force nil
   "Forcing the install or not.")
 
+;; §TODO: refactor with a struct: just link, and build from syntax
 (defconst cask-package-toolset-badge-templates-alist
   '(
     (:travis . ((:html . "<a href=\"http://travis-ci.org/%s\"><img alt=\"Build Status\" src=\" https://travis-ci.org/%s.svg\"/></a>")
@@ -83,6 +84,10 @@
                    (:markdown . "[![Coverage Status](https://coveralls.io/repos/%s/badge.svg)](https://coveralls.io/r/%s)")
                    (:orgmode . "[[https://coveralls.io/r/%s][file:https://coveralls.io/repos/%s/badge.svg]]")))
     ;; note: %%20 for format protection. (prevent interpretation as format specifi)
+    ;;
+    (:github . ((:html . "<a href=\"\"><img alt=\"Tag Version\" src=\"https://img.shields.io/github/tag/%s.svg\"/></a>")
+                (:markdown . "[![Tag Version](https://img.shields.io/github/tag/%s.svg)](https://github.com/%s/tags)")
+                (:orgmode . "[[https://github.com/%s/tags][file:https://img.shields.io/github/tag/%s.svg]]")))
     )
   "Template string alist for the Badges.")
 ;; §maybe: replace with custom
@@ -200,7 +205,7 @@ Note it remove enventual trailing .el"
             (cask-package-toolset-project-name repositery-name)
             repositery-name)))
 
-;; §todo: extract fun
+;; §TODO: extract fun: KILL WITH GENERICITY
 (defun cask-package-toolset-travis-badge (repositery-name syntax)
   "Return a travis badge corresponding to the REPOSITERY-NAME in specified SYNTAX."
   (unless (s-blank? repositery-name)
@@ -236,6 +241,13 @@ Note it remove enventual trailing .el"
   (unless (s-blank? repositery-name)
     (format (cask-package-toolset-badge-template :coveralls syntax)
             repositery-name repositery-name)))
+
+(defun cask-package-toolset-github-tag-badge (repositery-name syntax)
+  "Return a gitter  badge corresponding to the REPOSITERY-NAME in specified SYNTAX."
+  (unless (s-blank? repositery-name)
+    (format (cask-package-toolset-badge-template :github syntax)
+            repositery-name repositery-name)))
+
 
 ;; Commands
 (defun cask-package-toolset-install-all-templates ()
@@ -293,6 +305,7 @@ Note it remove enventual trailing .el"
           (message "%s" (cask-package-toolset-coveralls-badge repositery-name cask-package-toolset-badge-syntax))
           (message "%s" (cask-package-toolset-melpa-badge repositery-name cask-package-toolset-badge-syntax))
           (message "%s" (cask-package-toolset-melpa-stable-badge repositery-name cask-package-toolset-badge-syntax))
+          (message "%s" (cask-package-toolset-github-tag-badge repositery-name cask-package-toolset-badge-syntax))
           (message "%s" (cask-package-toolset-licence-badge cask-package-toolset-badge-syntax))
           (message "%s" (cask-package-toolset-gitter-badge repositery-name cask-package-toolset-badge-syntax))
           ;; note: lost 30 min: Not enough arguments for format string... (for gitterbadge %% quot)
