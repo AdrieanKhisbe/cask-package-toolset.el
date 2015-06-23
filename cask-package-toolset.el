@@ -275,6 +275,15 @@ Note it remove enventual trailing .el"
               (message (ansi-green "Ert Scaffold files generated")))
           (message (ansi-red "Some test file already exist. If you want to erase them, add --force option"))))))
 
+(defun cask-package-toolset-print-setup-coverage()
+  "Install Ert tests if not yet existing"
+  (let ((package-name (cask-package-toolset-project-name
+                       (cask-package-toolset-github-repositery-name))))
+    (if (s-blank? package-name)
+        (message (ansi-red "We could not retrieve project-name from github repo, specify the remote if origin does not refer to your github repositery."))
+      (message "%s" (cask-package-toolset-fill-template "undercover.el"
+                                                        `(("package-name" . ,package-name)))))))
+
 (defun cask-package-toolset-print-badges ()
   "Print Melpa Recipe."
   (let ((repositery-name (cask-package-toolset-github-repositery-name)))
@@ -326,6 +335,7 @@ Note it remove enventual trailing .el"
  (command "badge" cask-package-toolset-print-badges)
  (command "git" cask-package-toolset-print-github-remote)
  (command "setup-ert" cask-package-toolset-setup-test)
+ (command "setup-undercover" cask-package-toolset-print-setup-coverage)
  (command "help" cask-package-toolset-usage))
 
 
