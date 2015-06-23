@@ -36,9 +36,12 @@ Just add this has dependency to your =Cask= file
   : $ cask exec package-toolset badge
 + Setup unit test with ert:
   : $ cask exec package-toolset setup-ert
++ Get the code to setup coverage with [undercover](https://github.com/sviridov/undercover.el)
+  : $ cask exec package-toolset setup-undercover
 
 *** Options
-+ in case your =origin= remote is not targeting your github repositery, you can specify it with the =-r <remote>= or =--remote <remote>= option
++ In case your =origin= remote is not targeting your github repositery, you can specify it with the =-r <remote>= or =--remote <remote>= option
++ You could otherwise directly specify your repositeryname with the =-g= or =--github-repo= option. (don't forget your yoursername ;))
 + For the badges creation, you can specify the syntax you want with =-s <syntax>= or =--syntax <syntax>=. Legit values are =orgmode= =markdown= and =html=, =markown= bring the default
 
 ** Skeleton File List
