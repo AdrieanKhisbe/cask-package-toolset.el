@@ -36,7 +36,7 @@ Just add this has dependency to your =Cask= file
   : $ cask exec package-toolset badge
 + Setup unit test with ert:
   : $ cask exec package-toolset setup-ert
-+ Get the code to setup coverage with [undercover](https://github.com/sviridov/undercover.el)
++ Get the code to setup coverage with [[https://github.com/sviridov/undercover.el][undercover]]
   : $ cask exec package-toolset setup-undercover
 
 *** Options
