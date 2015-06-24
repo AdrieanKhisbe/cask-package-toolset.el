@@ -32,7 +32,7 @@
      (f-delete default-directory :force)))
 
 (require 'ert)
-(require '${package-name} (f-expand "${package-name}" ${package-name}-root-path))
+(require '${package-name})
 
 (provide 'test-helper)
 ;;; test-helper.el ends here
