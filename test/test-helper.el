@@ -39,7 +39,7 @@
             (:exclude "*-test.el")
             (:send-report nil)
             (:report-file "/tmp/undercover-report.json"))
-(require 'cask-package-toolset (f-expand "cask-package-toolset" cpt-root-path))
+(require 'cask-package-toolset )
 
 (provide 'test-helper)
 
