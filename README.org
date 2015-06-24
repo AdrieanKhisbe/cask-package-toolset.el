@@ -12,11 +12,16 @@
 
 ** About
 
-This is an /in building project/ to help you start or tool up your emacs package project
-in order to improve it's quality by helping you to launch test and protect you from regressions.
+The goal of *Cask Package Toolset* is to promote the use of integration and tests to
+have even better emacs library, where it's more easy to contribute and build new features! :)
+All that without fearing regressions, and unwanted breaking changes.
+
+It does that by *helping you to start or tool up your emacs package project* with
+best continuous integration practices and emacs tools.
+Among which [[travis-ci.org][travis]], [[https://github.com/rejeep/evm][evm]], [[https://github.com/rejeep/ert-runner.el][ert-runner]], [[https://github.com/ecukes/ecukes][ecukes]], [[https://github.com/cask/cask][Cask]], [[https://github.com/sviridov/undercover.el][undercover]], [[https://coveralls.io/][coveralls]].
 
 This is inspired from the [[http://rejeep.github.io/emacs/cask/ert/ert-runner/ert-async/ecukes/testing/travis/2014/01/09/various-testing-tools-in-emacs.html][following blog post]] of [[https://github.com/rejeep/][@Rejeep]] who had brought to us [[https://github.com/cask/cask][Cask]],
-[[https://github.com/rejeep/ert-runner.el][Ert-runner]] and [[https://github.com/rejeep/evm][Emacs Version Management]].
+[[https://github.com/rejeep/ert-runner.el][Ert-runner]] and [[https://github.com/rejeep/evm][Emacs Version Management]] (and many more :)).
 
 ** Installation
 
@@ -45,18 +50,30 @@ Just add this has dependency to your =Cask= file
 + You could otherwise directly specify your repositeryname with the =-g= or =--github-repo= option. (don't forget your yoursername ;))
 + For the badges creation, you can specify the syntax you want with =-s <syntax>= or =--syntax <syntax>=. Legit values are =orgmode= =markdown= and =html=, =markown= bring the default
 
-** Skeleton File List
+** Features
+# TODO: add status
+# §IDEA: badge for CI level?
+*** Skeleton File List
 
 Here is the list of the scaffold file to set up continuous integration for your emacs package.
 
-Here is the set of file to set this up.
-+ [[file:templates/Makefile][Makefile]] : The =Makefile=, and it's =test= targets
-+ [[file:templates/.gitignore][.gitgnore]] : A classic =gitignore= designed for a /casked/ emacs package
-+ [[file:templates/.travis.yml][.travis.yml]] : The build configuration file for Travis.
++ The =setup=, =install= command is to be run first, and will setup the following files
+  - [[file:templates/Makefile][Makefile]] : The =Makefile=, and it's =test= targets
+  - [[file:templates/.gitignore][.gitgnore]] : A classic =gitignore= designed for a /casked/ emacs package
+  - [[file:templates/.travis.yml][.travis.yml]] : The build configuration file for Travis.
++ The =setup-ert= will setup unit test structure:
+  - [[file:templates/test/test-helper.el][test-helper]] : Require testing libraries and setup usefull variable to different path of the project, or to easily run test in sandbow
+  - [[file:templates/testpackage-test.el][package-test]] : the file in which the test will have to be written :) (*cpt can't do that for you ;)*)
+  - [[file:templates/.ert-runner][.ert-runner]] : configuration of the ert runner. (adding files to the loadpath)
+
+# TODO: add ecukes+ undercover
+*** Others
+/toBeDone/ : badge, recipe,
 
 ** Notes
 
-This is still a prototype. If POC is working, happen to be usefull to other persons than just me, (/I personnaly used it to "toolsettize" mine package I built but not yet made public/)
-I will see with the =Cask= team to incorporate it to make it helpful to the comunity, and help promote use of integration and tests.
+This is no more a prototype, but some features are still added, driven by examples by the *toolsettization* of my own packages.
+
+I will see with the =Cask= team to incorporate it so that that it can be accessed without adding it has Cask dependancy.
 
 *If you have any remark, refactor suggestion or else, just pose an issue ;)*

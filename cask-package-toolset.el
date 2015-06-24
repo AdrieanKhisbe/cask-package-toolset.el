@@ -28,7 +28,10 @@
 
 ;;; Commentary:
 
-;; In building project to help you start or tool up your emacs package project.
+;; Setup Continuous integration for EmacsLisp without pain!
+;;
+;; Easily setup test and continous intergration to have even better
+;; emacs libraries where it's more easy to contribute and build new features! :)
 
 ;;; Code:
 
