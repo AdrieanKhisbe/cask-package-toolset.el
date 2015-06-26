@@ -40,15 +40,18 @@ Just add this has dependency to your =Cask= file
   : $ cask exec package-toolset melpa-recipe
 + Print the badges for the =README=
   : $ cask exec package-toolset badge
-+ Setup unit test with ert:
++ Setup unit test with [[https://www.gnu.org/software/emacs/manual/html_node/ert/][ert]] and [[https://github.com/rejeep/ert-runner.el][ert-runner]]:
   : $ cask exec package-toolset setup-ert
 + Get the code to setup coverage with [[https://github.com/sviridov/undercover.el][undercover]]
   : $ cask exec package-toolset setup-undercover
 
 *** Options
-+ In case your =origin= remote is not targeting your github repositery, you can specify it with the =-r <remote>= or =--remote <remote>= option
-+ You could otherwise directly specify your repositeryname with the =-g= or =--github-repo= option. (don't forget your yoursername ;))
-+ For the badges creation, you can specify the syntax you want with =-s <syntax>= or =--syntax <syntax>=. Legit values are =orgmode= =markdown= and =html=, =markown= bring the default
++ In case your =origin= remote is not targeting your github repositery, you can specify
+  it with the =-r <remote>= or =--remote <remote>= option
++ You could otherwise directly specify your repositeryname with the =-g= or =--github-repo=
+  option. (don't forget your yoursername ;))
++ For the badges creation, you can specify the syntax you want with =-s <syntax>= or
+  =--syntax <syntax>=. Legit values are =orgmode= =markdown= and =html=, =markown= bring the default
 
 ** Features
 # TODO: add status
@@ -65,10 +68,26 @@ Here is the list of the scaffold file to set up continuous integration for your 
   - [[file:templates/test/test-helper.el][test-helper]] : Require testing libraries and setup usefull variable to different path of the project, or to easily run test in sandbow
   - [[file:templates/testpackage-test.el][package-test]] : the file in which the test will have to be written :) (*cpt can't do that for you ;)*)
   - [[file:templates/.ert-runner][.ert-runner]] : configuration of the ert runner. (adding files to the loadpath)
++ The =setup-undercover= will help you set up coverage.
 
-# TODO: add ecukes+ undercover
-*** Others
-/toBeDone/ : badge, recipe,
+  It will output the code that need to be added to =test/test-helper.el= and =features/support/env.el= so that
+  coverage metrics are computed while testing.
+
+# TODO: add ecukes (maybe: call to ecukes new?)
+*** Badges
+/Cask Package Toolset/ will help you build badges to add to your README, so you can have an idea about
+the current state of the package in just a glance.
+Calling the =badge= command will output you a list of badges link you can then copy paste to your README.
+
+So far support information such as build status, coverage, melpa status, licence, and also gitter.
+
+/Cask Package Toolset/ supports three different syntaxes: orgmode, markdown and html.
+By default you'll get markdown, but you can explicitely specify one of the syntax with the =-s/--syntax= option.
+
+*** Melpa Recipe
+If you have not yet published your package to melpa, /Cask Package Toolset/ can easily build up the basic recipe
+for you'll just have to add to the [[https://github.com/milkypostman/melpa][melpa repositery]].
+Note that you might need to add something more than the name and repo (such as extra files to be included)
 
 ** Notes
 
