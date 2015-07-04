@@ -176,7 +176,7 @@ Throw exception if non existing!"
   (if cask-package-toolset-github-repositery
       cask-package-toolset-github-repositery
     (let ((remote-name
-           (replace-regexp-in-string "\n\\'" ""
+           (s-trim
              (shell-command-to-string
               (format "git config --get remote.%s.url"
                       cask-package-toolset-github-remote)))))
