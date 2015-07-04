@@ -4,10 +4,10 @@
 
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Created:  2015-05-14
-;; Version: 0.6.3
+;; Version: 0.6.4
 ;; Keywords: convenience, tools
 ;; Url: http://github.com/AdrieanKhisbe/cask-package-toolset.el
-;; Package-Requires: ((emacs "24") (cl-lib "0.3") (s "1.6.1") (dash "1.8.0") (f "0.10.0") (commander "0.2.0") (ansi "0.1.0") (shut-up "0.1.0") (magit "2.1.0"))
+;; Package-Requires: ((emacs "24") (cl-lib "0.3") (s "1.6.1") (dash "1.8.0") (f "0.10.0") (commander "0.2.0") (ansi "0.1.0") (shut-up "0.1.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -42,7 +42,6 @@
 (require 'commander)
 (require 'ansi)
 (require 'shut-up)
-(shut-up (require 'magit))
 
 (when noninteractive
   (shut-up-silence-emacs))
@@ -174,9 +173,13 @@ Throw exception if non existing!"
 ;; Project Property extractors
 ;; §todo: maybe: set as a variable
 (defun cask-package-toolset-github-repositery-name()
-  (if cask-package-toolset-github-repositery cask-package-toolset-github-repositery
-    (let ((remote-name (magit-get "remote" cask-package-toolset-github-remote "url")))
-      ;; §todo: relace origin with variable
+  (if cask-package-toolset-github-repositery
+      cask-package-toolset-github-repositery
+    (let ((remote-name
+           (replace-regexp-in-string "\n\\'" ""
+             (shell-command-to-string
+              (format "git config --get remote.%s.url"
+                      cask-package-toolset-github-remote)))))
       (when (s-contains? "github" remote-name)
         (s-chop-suffix
          ".git"

@@ -49,7 +49,7 @@
                           (newline))))
                (commander-parse args))
       (with-current-buffer buffer
-        (let ((content (ansi-color-filter-apply  (buffer-string))))
+        (let ((content (ansi-color-filter-apply (buffer-string))))
           ;;(cond ((= exit-code 0) ; §later: see how to handle error?
                  (setq cask-package-toolset-stdout content))))))
 

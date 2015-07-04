@@ -35,6 +35,7 @@
 (require 'cask-package-toolset)
 (require 'espuds)
 (require 'ert)
+(require 'ansi-color)
 
 (Setup
  ;; Before anything has run
