@@ -9,6 +9,9 @@
      (cask-package-toolset-copy-template file-name)
      (should (f-exists? (f-expand file-name))))))
 
+(ert-deftest cpt-copy-non-existing-template()
+  (should-error (cask-package-toolset-copy-template "non-existing-file")))
+
 (ert-deftest cpt-copy-template-should-not-erase-existing-file ()
   (let ((file-name "void") )
     (within-sandbox
@@ -32,11 +35,14 @@
    (should (-all? (lambda (file) (f-exists? file))
                   cask-package-toolset-templates))))
 
-(ert-deftest cpt-fill-template()
+(ert-deftest cpt-fill-template-ok()
   (should
    (equal
     (cask-package-toolset-fill-template "void-template" '(("package-name" . "Emacs")))
     "Hello Emacs\n")))
+
+(ert-deftest cpt-fill-template-ko()
+  (should-error (cask-package-toolset-fill-template "non-existing-file")))
 
 (ert-deftest cpt-install-test-template()
   (within-sandbox
@@ -45,6 +51,8 @@
    (should (f-exists? (f-expand "test/titi-toto-test.el")))))
 
 ;; Extractors
+
+;; §TODO: real test of: repositery-name with mocking
 
 (ert-deftest cpt-github-url()
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
@@ -91,6 +99,8 @@
         (melpa-stable-badge "<a href=\"http://stable.melpa.org/#/cask-package-toolset\"><img alt=\"MELPA Stable\" src=\"http://stable.melpa.org/packages/cask-package-toolset-badge.svg\"/></a>"))
     (should (equal (cask-package-toolset-melpa-stable-badge repo-name :html) melpa-stable-badge))))
 
+;; §> options setters
+
 (ert-deftest cask-package-toolset-set-badge-syntax-ko()
   (shut-up (cask-package-toolset-set-badge-syntax "junk"))
   (should (equal cask-package-toolset-badge-syntax :markdown)))
@@ -99,5 +109,14 @@
   (cask-package-toolset-set-badge-syntax "orgmode")
   (should (equal cask-package-toolset-badge-syntax :orgmode)))
 
+(ert-deftest cask-package-toolset-set-force-ok()
+  (should-not cask-package-toolset-force)
+  (cask-package-toolset-set-force)
+  (should cask-package-toolset-force))
+
+(ert-deftest cask-package-toolset-set-remote-ok()
+  (should (equal cask-package-toolset-github-remote "origin"))
+  (cask-package-toolset-set-github-remote "whatevertheweather")
+  (should (equal cask-package-toolset-github-remote "whatevertheweather")))
 
 ;; §todo: should check githubrepo workig when just mocking remote name (magit call)
