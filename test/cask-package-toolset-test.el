@@ -52,7 +52,7 @@
 
 ;; Extractors
 
-;; §TODO: real test of: repositery-name with mocking
+;; §TODO: real test of: repository-name with mocking
 
 (ert-deftest cpt-github-url()
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")

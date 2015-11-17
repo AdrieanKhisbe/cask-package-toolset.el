@@ -36,7 +36,7 @@ Just add this has dependency to your =Cask= file
   : $ cask exec package-toolset status
 + Install all the tools
   : $ cask exec package-toolset install
-+ Print the melpa recipe for your repositery
++ Print the melpa recipe for your repository
   : $ cask exec package-toolset melpa-recipe
 + Print the badges for the =README=
   : $ cask exec package-toolset badge
@@ -46,9 +46,9 @@ Just add this has dependency to your =Cask= file
   : $ cask exec package-toolset setup-undercover
 
 *** Options
-+ In case your =origin= remote is not targeting your github repositery, you can specify
++ In case your =origin= remote is not targeting your github repository, you can specify
   it with the =-r <remote>= or =--remote <remote>= option
-+ You could otherwise directly specify your repositeryname with the =-g= or =--github-repo=
++ You could otherwise directly specify your repositoryname with the =-g= or =--github-repo=
   option. (don't forget your yoursername ;))
 + For the badges creation, you can specify the syntax you want with =-s <syntax>= or
   =--syntax <syntax>=. Legit values are =orgmode= =markdown= and =html=, =markown= bring the default
@@ -86,7 +86,7 @@ By default you'll get markdown, but you can explicitely specify one of the synta
 
 *** Melpa Recipe
 If you have not yet published your package to melpa, /Cask Package Toolset/ can easily build up the basic recipe
-for you'll just have to add to the [[https://github.com/milkypostman/melpa][melpa repositery]].
+for you'll just have to add to the [[https://github.com/milkypostman/melpa][melpa repository]].
 Note that you might need to add something more than the name and repo (such as extra files to be included)
 
 ** Notes
