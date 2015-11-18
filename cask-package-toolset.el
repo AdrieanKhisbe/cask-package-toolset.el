@@ -4,7 +4,7 @@
 
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Created:  2015-05-14
-;; Version: 0.6.5
+;; Version: 0.6.6
 ;; Keywords: convenience, tools
 ;; Url: http://github.com/AdrieanKhisbe/cask-package-toolset.el
 ;; Package-Requires: ((emacs "24") (cl-lib "0.3") (s "1.6.1") (dash "1.8.0") (f "0.10.0") (commander "0.2.0") (ansi "0.1.0") (shut-up "0.1.0"))
@@ -53,8 +53,8 @@
 (defvar cask-package-toolset-github-remote "origin"
   "Name of the Github remote.")
 
-(defvar cask-package-toolset-github-repositery nil
-  "Name of the Github repositery.")
+(defvar cask-package-toolset-github-repository nil
+  "Name of the Github repository.")
 
 (defvar cask-package-toolset-badge-syntax :markdown)
 
@@ -100,10 +100,10 @@ Throw exception if non existing!"
   (let ((result (cdr (assoc syntax (assoc name cask-package-toolset-badge-templates-alist)))))
     (if result result (error "%s and %s are not valid template key" name syntax))))
 
-(defun cask-package-toolset-set-github-repositery (repo)
+(defun cask-package-toolset-set-github-repository (repo)
   "Set github REPO."
   ;; §todo: check real repo
-  (setq cask-package-toolset-github-repositery repo))
+  (setq cask-package-toolset-github-repository repo))
 
 (defun cask-package-toolset-set-github-remote (remote)
   "Set github REMOTE."
@@ -172,9 +172,9 @@ Throw exception if non existing!"
 
 ;; Project Property extractors
 ;; §todo: maybe: set as a variable
-(defun cask-package-toolset-github-repositery-name()
-  (if cask-package-toolset-github-repositery
-      cask-package-toolset-github-repositery
+(defun cask-package-toolset-github-repository-name()
+  (if cask-package-toolset-github-repository
+      cask-package-toolset-github-repository
     (let ((remote-name
            (s-trim
              (shell-command-to-string
@@ -187,73 +187,73 @@ Throw exception if non existing!"
              (nth 1 (s-split ":" remote-name)) ; git protocol
            (nth 1 (s-split ".com/" remote-name)))))))) ; http
 
-(defun cask-package-toolset-github-url (repositery-name)
-  "Return the github url from REPOSITERY-NAME."
-  (unless (s-blank? repositery-name)
-    (format "http://github.com/%s" repositery-name)))
+(defun cask-package-toolset-github-url (repository-name)
+  "Return the github url from REPOSITORY-NAME."
+  (unless (s-blank? repository-name)
+    (format "http://github.com/%s" repository-name)))
 
-(defun cask-package-toolset-travis-url (repositery-name)
-  "Return the travis url from REPOSITERY-NAME."
-  (unless (s-blank? repositery-name)
-    (format "http://travis-ci.org/%s" repositery-name)))
+(defun cask-package-toolset-travis-url (repository-name)
+  "Return the travis url from REPOSITORY-NAME."
+  (unless (s-blank? repository-name)
+    (format "http://travis-ci.org/%s" repository-name)))
 
-(defun cask-package-toolset-project-name (repositery-name)
-  "Return the project name from REPOSITERY-NAME.
+(defun cask-package-toolset-project-name (repository-name)
+  "Return the project name from REPOSITORY-NAME.
 
 Note it remove enventual trailing .el"
-  (unless (s-blank? repositery-name)
-    (s-chop-suffix ".el" (nth 1 (s-split "/" repositery-name)))))
+  (unless (s-blank? repository-name)
+    (s-chop-suffix ".el" (nth 1 (s-split "/" repository-name)))))
 
 ;; Fragment generator
-(defun cask-package-toolset-melpa-recipe (repositery-name)
-  "Return a melpa recipe corresponding to the REPOSITERY-NAME."
-  (unless (s-blank? repositery-name)
+(defun cask-package-toolset-melpa-recipe (repository-name)
+  "Return a melpa recipe corresponding to the REPOSITORY-NAME."
+  (unless (s-blank? repository-name)
     (format "(%s :fetcher github :repo \"%s\")"
-            (cask-package-toolset-project-name repositery-name)
-            repositery-name)))
+            (cask-package-toolset-project-name repository-name)
+            repository-name)))
 
 ;; §TODO: extract fun: KILL WITH GENERICITY
-(defun cask-package-toolset-travis-badge (repositery-name syntax)
-  "Return a travis badge corresponding to the REPOSITERY-NAME in specified SYNTAX."
-  (unless (s-blank? repositery-name)
+(defun cask-package-toolset-travis-badge (repository-name syntax)
+  "Return a travis badge corresponding to the REPOSITORY-NAME in specified SYNTAX."
+  (unless (s-blank? repository-name)
     (format (cask-package-toolset-badge-template :travis syntax)
-            repositery-name repositery-name)))
+            repository-name repository-name)))
 
-(defun cask-package-toolset-melpa-badge (repositery-name syntax)
-  "Return a melpa badge corresponding to the REPOSITERY-NAME in specified SYNTAX."
-  (unless (s-blank? repositery-name)
-    (let ((project-name (cask-package-toolset-project-name repositery-name)))
+(defun cask-package-toolset-melpa-badge (repository-name syntax)
+  "Return a melpa badge corresponding to the REPOSITORY-NAME in specified SYNTAX."
+  (unless (s-blank? repository-name)
+    (let ((project-name (cask-package-toolset-project-name repository-name)))
       (format (cask-package-toolset-badge-template :melpa syntax)
               project-name project-name))))
 
-(defun cask-package-toolset-melpa-stable-badge (repositery-name syntax)
-  "Return a melpa stable badge corresponding to the REPOSITERY-NAME in specified SYNTAX."
-  (unless (s-blank? repositery-name)
-    (let ((project-name (cask-package-toolset-project-name repositery-name)))
+(defun cask-package-toolset-melpa-stable-badge (repository-name syntax)
+  "Return a melpa stable badge corresponding to the REPOSITORY-NAME in specified SYNTAX."
+  (unless (s-blank? repository-name)
+    (let ((project-name (cask-package-toolset-project-name repository-name)))
       (format (cask-package-toolset-badge-template :melpa-stable syntax)
               project-name project-name))))
 ;; §maybe: badge for cask conventions -> SEE
 
-(defun cask-package-toolset-gitter-badge (repositery-name syntax)
-  "Return a gitter  badge corresponding to the REPOSITERY-NAME in specified SYNTAX."
-  (unless (s-blank? repositery-name)
-    (format (cask-package-toolset-badge-template :gitter syntax) repositery-name)))
+(defun cask-package-toolset-gitter-badge (repository-name syntax)
+  "Return a gitter  badge corresponding to the REPOSITORY-NAME in specified SYNTAX."
+  (unless (s-blank? repository-name)
+    (format (cask-package-toolset-badge-template :gitter syntax) repository-name)))
 
 (defun cask-package-toolset-licence-badge (syntax)
   "Return a licence in specified SYNTAX."
   (cask-package-toolset-badge-template :licence syntax))
 
-(defun cask-package-toolset-coveralls-badge (repositery-name syntax)
-  "Return a gitter  badge corresponding to the REPOSITERY-NAME in specified SYNTAX."
-  (unless (s-blank? repositery-name)
+(defun cask-package-toolset-coveralls-badge (repository-name syntax)
+  "Return a gitter  badge corresponding to the REPOSITORY-NAME in specified SYNTAX."
+  (unless (s-blank? repository-name)
     (format (cask-package-toolset-badge-template :coveralls syntax)
-            repositery-name repositery-name)))
+            repository-name repository-name)))
 
-(defun cask-package-toolset-github-tag-badge (repositery-name syntax)
-  "Return a gitter  badge corresponding to the REPOSITERY-NAME in specified SYNTAX."
-  (unless (s-blank? repositery-name)
+(defun cask-package-toolset-github-tag-badge (repository-name syntax)
+  "Return a gitter  badge corresponding to the REPOSITORY-NAME in specified SYNTAX."
+  (unless (s-blank? repository-name)
     (format (cask-package-toolset-badge-template :github syntax)
-            repositery-name repositery-name)))
+            repository-name repository-name)))
 
 
 ;; Commands
@@ -267,22 +267,22 @@ Note it remove enventual trailing .el"
   (message (ansi-blue "Give us a command. install for instance, or consult usage with help")))
 
 (defun cask-package-toolset-print-github-remote()
-  (message "%s" (cask-package-toolset-github-repositery-name)))
+  (message "%s" (cask-package-toolset-github-repository-name)))
 
 (defun cask-package-toolset-print-melpa-recipe ()
   "Print Melpa Recipe."
   (let ((melpa-recipe (cask-package-toolset-melpa-recipe
-                       (cask-package-toolset-github-repositery-name))))
+                       (cask-package-toolset-github-repository-name))))
     (message (if (s-blank? melpa-recipe)
-                 (ansi-red "We could not retrieve melpa recipe, specify the remote if origin does not refer to your github repositery.")
+                 (ansi-red "We could not retrieve melpa recipe, specify the remote if origin does not refer to your github repository.")
                melpa-recipe))))
 
 (defun cask-package-toolset-setup-test()
   "Install Ert tests if not yet existing"
   (let ((package-name (cask-package-toolset-project-name
-                       (cask-package-toolset-github-repositery-name))))
+                       (cask-package-toolset-github-repository-name))))
     (if (s-blank? package-name)
-       (message (ansi-red "We could not retrieve project-name from github repo, specify the remote if origin does not refer to your github repositery."))
+       (message (ansi-red "We could not retrieve project-name from github repo, specify the remote if origin does not refer to your github repository."))
         (if (or (not (f-exists? (f-expand "test")))
                 cask-package-toolset-force)
             (progn
@@ -293,30 +293,30 @@ Note it remove enventual trailing .el"
 (defun cask-package-toolset-print-setup-coverage()
   "Install Ert tests if not yet existing"
   (let ((package-name (cask-package-toolset-project-name
-                       (cask-package-toolset-github-repositery-name))))
+                       (cask-package-toolset-github-repository-name))))
     (if (s-blank? package-name)
-        (message (ansi-red "We could not retrieve project-name from github repo, specify the remote if origin does not refer to your github repositery."))
+        (message (ansi-red "We could not retrieve project-name from github repo, specify the remote if origin does not refer to your github repository."))
       (message "%s" (cask-package-toolset-fill-template "undercover.el"
                                                         `(("package-name" . ,package-name)))))))
 
 (defun cask-package-toolset-print-badges ()
   "Print Melpa Recipe."
-  (let ((repositery-name (cask-package-toolset-github-repositery-name)))
-    (if repositery-name
+  (let ((repository-name (cask-package-toolset-github-repository-name)))
+    (if repository-name
         (progn
-          (message "%s" (cask-package-toolset-travis-badge repositery-name cask-package-toolset-badge-syntax))
-          (message "%s" (cask-package-toolset-coveralls-badge repositery-name cask-package-toolset-badge-syntax))
-          (message "%s" (cask-package-toolset-melpa-badge repositery-name cask-package-toolset-badge-syntax))
-          (message "%s" (cask-package-toolset-melpa-stable-badge repositery-name cask-package-toolset-badge-syntax))
-          (message "%s" (cask-package-toolset-github-tag-badge repositery-name cask-package-toolset-badge-syntax))
+          (message "%s" (cask-package-toolset-travis-badge repository-name cask-package-toolset-badge-syntax))
+          (message "%s" (cask-package-toolset-coveralls-badge repository-name cask-package-toolset-badge-syntax))
+          (message "%s" (cask-package-toolset-melpa-badge repository-name cask-package-toolset-badge-syntax))
+          (message "%s" (cask-package-toolset-melpa-stable-badge repository-name cask-package-toolset-badge-syntax))
+          (message "%s" (cask-package-toolset-github-tag-badge repository-name cask-package-toolset-badge-syntax))
           (message "%s" (cask-package-toolset-licence-badge cask-package-toolset-badge-syntax))
-          (message "%s" (cask-package-toolset-gitter-badge repositery-name cask-package-toolset-badge-syntax))
+          (message "%s" (cask-package-toolset-gitter-badge repository-name cask-package-toolset-badge-syntax))
           ;; note: lost 30 min: Not enough arguments for format string... (for gitterbadge %% quot)
           )
-      (message (ansi-red "We could not retrieve melpa recipe, specify the remote if origin does not refer to your github repositery.")))))
+      (message (ansi-red "We could not retrieve melpa recipe, specify the remote if origin does not refer to your github repository.")))))
 
 (defun cask-package-toolset-print-status()
-  "Print current status of the repositery"
+  "Print current status of the repository"
   (let ((file-status
          `(;; File/Name - Status - Reco if Nok
            ;; check installed templates.
@@ -339,7 +339,7 @@ Note it remove enventual trailing .el"
  (config ".cask-package-toolset")
  (default cask-package-toolset-noop)
 
- (option "--github-repo <repo>, -g <repo>" cask-package-toolset-set-github-repositery)
+ (option "--github-repo <repo>, -g <repo>" cask-package-toolset-set-github-repository)
  (option "--remote <remote>, -r <remote>" cask-package-toolset-set-github-remote)
  (option "--syntax <syntax>, -s <syntax>" cask-package-toolset-set-badge-syntax)
  (option "--force, -f" cask-package-toolset-set-force)
