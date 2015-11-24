@@ -320,7 +320,7 @@ Note it remove enventual trailing .el"
   (let ((file-status
          `(;; File/Name - Status - Reco if Nok
            ;; check installed templates.
-           ,@(-map (lambda (file)(list file (f-exists? file) "You should run `package-toolset'"))
+           ,@(-map (lambda (file)(list file (f-exists? file) "You should run `package-toolset setup'"))
                    cask-package-toolset-templates)
            ;; check installed ert
            ("Ert Test" ,(f-directory? "test") "You should run `cask exec package-toolset setup-ert'")
