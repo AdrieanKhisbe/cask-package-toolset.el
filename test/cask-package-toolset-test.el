@@ -1,8 +1,6 @@
 ;;; Test for `cask-package-toolset'
 ;;; Code:
 
-;; §todo: make quiet test
-
 (ert-deftest cpt-copy-template-non-existing-file ()
   (let ((file-name "void") )
     (within-sandbox
@@ -100,10 +98,8 @@
     (should (equal (cask-package-toolset-melpa-stable-badge repo-name :html) melpa-stable-badge))))
 
 ;; §> options setters
-
 (ert-deftest cask-package-toolset-set-badge-syntax-ko()
-  (shut-up (cask-package-toolset-set-badge-syntax "junk"))
-  (should (equal cask-package-toolset-badge-syntax :markdown)))
+  (shut-up (should-error (cask-package-toolset-set-badge-syntax "junk"))))
 
 (ert-deftest cask-package-toolset-set-badge-syntax-ok()
   (cask-package-toolset-set-badge-syntax "orgmode")

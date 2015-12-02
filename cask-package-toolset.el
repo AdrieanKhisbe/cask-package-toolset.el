@@ -114,7 +114,7 @@ Throw exception if non existing!"
   "Set badge SYNTAX."
   (if (-any? (lambda(s)(s-equals? s syntax)) '("html" "markdown" "orgmode"))
       (setq cask-package-toolset-badge-syntax (intern (s-concat ":" syntax)))
-      (message (ansi-red (format "%s is not a syntax, keeping default" syntax)))))
+      (error (ansi-red (format "%s is not a valid syntax: valid ones [html markdown orgmode]" syntax)))))
 
 (defun cask-package-toolset-set-force ()
   "Set force mode."
@@ -285,8 +285,8 @@ Note it remove enventual trailing .el"
        (message (ansi-red "We could not retrieve project-name from github repo, specify the remote if origin does not refer to your github repository."))
         (if (or (not (f-exists? (f-expand "test")))
                 cask-package-toolset-force)
-            (progn
-              (cask-package-toolset-install-test-template package-name)
+        (progn
+            (cask-package-toolset-install-test-template package-name)
               (message (ansi-green "Ert Scaffold files generated")))
           (message (ansi-red "Some test file already exist. If you want to erase them, add --force option"))))))
 
