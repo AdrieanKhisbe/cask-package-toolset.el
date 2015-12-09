@@ -40,7 +40,7 @@ Feature: Set up Continous integration for my Library
        [![MELPA](http://melpa.org/packages/cask-package-toolset-badge.svg)](http://melpa.org/#/cask-package-toolset)
        [![MELPA stable](http://stable.melpa.org/packages/cask-package-toolset-badge.svg)](http://stable.melpa.org/#/cask-package-toolset)
        [![Tag Version](https://img.shields.io/github/tag/AdrieanKhisbe/cask-package-toolset.el.svg)](https://github.com/AdrieanKhisbe/cask-package-toolset.el/tags)
-       [![License] (http://img.shields.io/:license-gpl3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
+       [![License](http://img.shields.io/:license-gpl3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
        [![Join the chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/AdrieanKhisbe/cask-package-toolset.el)
        """
 

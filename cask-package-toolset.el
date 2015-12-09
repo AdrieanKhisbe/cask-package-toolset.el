@@ -77,7 +77,7 @@
                       (:markdown . "[![MELPA stable](http://stable.melpa.org/packages/%s-badge.svg)](http://stable.melpa.org/#/%s)")
                       (:orgmode . "[[http://stable.melpa.org/#/%s][file:http://stable.melpa.org/packages/%s-badge.svg]]")))
     (:licence . ((:html . "<a href=\"http://www.gnu.org/licenses/gpl-3.0.html\"><img alt=\"Licence\" src=\"http://img.shields.io/:license-gpl3-blue.svg/\"></a>")
-                 (:markdown . "[![License] (http://img.shields.io/:license-gpl3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)")
+                 (:markdown . "[![License](http://img.shields.io/:license-gpl3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)")
                  (:orgmode . "[[http://www.gnu.org/licenses/gpl-3.0.html][http://img.shields.io/:license-gpl3-blue.svg]]")))
     (:gitter . ((:html . "<a href=\"https://gitter.im/%s\"><img alt=\"Join the chat\" src=\"https://badges.gitter.im/Join%%20Chat.svg\"></a>")
                 (:markdown . "[![Join the chat](https://badges.gitter.im/Join%%20Chat.svg)](https://gitter.im/%s)")
