@@ -33,6 +33,26 @@
    (should (-all? (lambda (file) (f-exists? file))
                   cask-package-toolset-templates))))
 
+(ert-deftest cpt-update-travis--none ()
+    (within-sandbox
+     (shut-up (should-error (cask-package-toolset-ensure-latest-travis-config)))))
+
+(ert-deftest cpt-update-travis--updated ()
+  (within-sandbox
+   (shut-up
+    (f-write "let's say it's the travis file" 'utf-8 (f-expand ".travis.yml" cpt-sandbox-path))
+    (cask-package-toolset-ensure-latest-travis-config)
+    (should (s-contains? "Updating travis"
+                         (shut-up-current-output))))))
+
+(ert-deftest cpt-update-travis--up-to-date ()
+  (within-sandbox
+   (shut-up
+    (cask-package-toolset-copy-template ".travis.yml")
+    (cask-package-toolset-ensure-latest-travis-config)
+    (should (s-contains? "Travis config already updated"
+                         (shut-up-current-output))))))
+
 (ert-deftest cpt-fill-template-ok()
   (should
    (equal

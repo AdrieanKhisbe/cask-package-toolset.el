@@ -4,7 +4,7 @@
 
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Created:  2015-05-14
-;; Version: 0.6.6
+;; Version: 0.7.0
 ;; Keywords: convenience, tools
 ;; Url: http://github.com/AdrieanKhisbe/cask-package-toolset.el
 ;; Package-Requires: ((emacs "24") (cl-lib "0.3") (s "1.6.1") (dash "1.8.0") (f "0.10.0") (commander "0.2.0") (ansi "0.1.0") (shut-up "0.1.0"))
@@ -299,6 +299,19 @@ Note it remove enventual trailing .el"
       (message "%s" (cask-package-toolset-fill-template "undercover.el"
                                                         `(("package-name" . ,package-name)))))))
 
+(defun cask-package-toolset-ensure-latest-travis-config()
+  "Updare travis recipe if up to date"
+  (if (f-exists? ".travis.yml")
+      (let ((travis-content (f-read-text ".travis.yml")))
+        (if (s-contains? "/ebcd57c3af83b049833b/" travis-content)
+            (message (ansi-green "Travis config already updated"))
+          (let ((template-file (cask-package-toolset--template-path ".travis.yml"))
+                (destination-file (f-expand ".travis.yml")))
+            (message "Updating travis config\nYou might need to check the emacs version you want to support")
+            (f-delete destination-file)
+            (f-copy template-file destination-file))))
+    (error "Travis not setup yet, run `setup' instead")))
+
 (defun cask-package-toolset-print-badges ()
   "Print Melpa Recipe."
   (let ((repository-name (cask-package-toolset-github-repository-name)))
@@ -353,6 +366,7 @@ Note it remove enventual trailing .el"
  (command "badge" "Print badges to add to your READLE" cask-package-toolset-print-badges)
  (command "melpa-recipe" "Print recipe for melpa" cask-package-toolset-print-melpa-recipe)
  (command "git" "Print deduced github remote" cask-package-toolset-print-github-remote)
+ (command "update-travis" "Update travis recipe if needed" cask-package-toolset-ensure-latest-travis-config)
  (command "help" "Show usage information" commander-print-usage))
 
 
