@@ -302,16 +302,15 @@ Note it remove enventual trailing .el"
 (defun cask-package-toolset-ensure-latest-travis-config()
   "Updare travis recipe if up to date"
   (if (f-exists? ".travis.yml")
-      (progn
-        (let ((travis-content (f-read-text ".travis.yml")))
-          (if (s-contains? "/ebcd57c3af83b049833b/" travis-content)
-              (message (ansi-green "Travis config already updated"))
-              (let ((template-file (cask-package-toolset--template-path ".travis.yml"))
-                    (destination-file (f-expand ".travis.yml")))
-                (message "Updating travis config\nYou might need to check the emacs version you want to support")
-                (f-delete destination-file)
-                (f-copy template-file destination-file)))))
-      (error "Travis not setup yet, run `setup' instead")))
+      (let ((travis-content (f-read-text ".travis.yml")))
+        (if (s-contains? "/ebcd57c3af83b049833b/" travis-content)
+            (message (ansi-green "Travis config already updated"))
+          (let ((template-file (cask-package-toolset--template-path ".travis.yml"))
+                (destination-file (f-expand ".travis.yml")))
+            (message "Updating travis config\nYou might need to check the emacs version you want to support")
+            (f-delete destination-file)
+            (f-copy template-file destination-file) (message "bite"))))
+    (error "Travis not setup yet, run `setup' instead")))
 
 (defun cask-package-toolset-print-badges ()
   "Print Melpa Recipe."
