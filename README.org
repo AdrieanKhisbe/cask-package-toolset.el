@@ -44,6 +44,8 @@ Just add this has dependency to your =Cask= file
   : $ cask exec package-toolset setup-ert
 + Get the code to setup coverage with [[https://github.com/sviridov/undercover.el][undercover]]
   : $ cask exec package-toolset setup-undercover
++ Update travis config if needed with update-travis
+  : $ cask exec package-toolset update-travis
 
 *** Options
 + In case your =origin= remote is not targeting your github repository, you can specify
