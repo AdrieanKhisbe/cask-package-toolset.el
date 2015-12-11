@@ -139,11 +139,21 @@
 
 ;; Generators
 
-(ert-deftest cpt-melpa-recipe()
+(ert-deftest cpt-melpa-recipe-ok ()
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
         (melpa-recipe
          "(cask-package-toolset :fetcher github :repo \"AdrieanKhisbe/cask-package-toolset.el\")"))
     (should (equal (cask-package-toolset-melpa-recipe repo-name) melpa-recipe))))
+
+(ert-deftest cpt-melpa-recipe-ko ()
+  (shut-up
+   (with-mock
+    (mock (cask-package-toolset-melpa-recipe *) => "")
+
+    (cask-package-toolset-print-melpa-recipe)
+    (should (s-contains?
+             "We could not retrieve melpa recipe, specify the remote if origin does not refer to your github repository."
+             (shut-up-current-output))))))
 
 (ert-deftest cpt-travis-badge-get-template-ok ()
   (should (equal (cask-package-toolset-badge-template :travis :orgmode)
