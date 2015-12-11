@@ -16,12 +16,24 @@
 (defvar cask-package-toolset-executable
   (f-expand "package-toolset" cask-package-toolset-bin-path))
 
+(defvar cask-package-toolset-sandbox-path
+  (f-expand "sandbox" cask-package-toolset-root-path))
+
 ;; §todo: set it with a given!
 (defvar cask-package-toolset-project-path
   cask-package-toolset-root-path)
 
 (defvar cask-package-toolset-stderr)
 (defvar cask-package-toolset-stdout)
+
+(defmacro within-sandbox (&rest body)
+  "Evaluate BODY in an empty sandbox directory."
+  `(let ((default-directory cask-package-toolset-sandbox-path))
+     (when (f-exists? cask-package-toolset-sandbox-path)
+       (f-delete default-directory :force))
+     (f-mkdir cask-package-toolset-sandbox-path)
+     ,@body
+     (f-delete default-directory :force)))
 
 (add-to-list 'load-path cask-package-toolset-root-path)
 

@@ -21,6 +21,16 @@ Feature: Set up Continous integration for my Library
        - Ecukes Features     →   Ok
        """
 
+Scenario: Getting the status of a new project
+    When I run package-toolset "status" within a new dir
+    Then I should see command output:
+       """
+       - Makefile            →   You should run `package-toolset setup'
+       - .gitignore          →   You should run `package-toolset setup'
+       - .travis.yml         →   You should run `package-toolset setup'
+       - Ert Test            →   You should run `cask exec package-toolset setup-ert'
+       - Ecukes Features     →   You should run `cask exec ecukes new'
+       """
 
   Scenario: Specy github repo
     When I run package-toolset "git --github-repo ab/cd"
