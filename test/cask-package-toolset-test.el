@@ -66,6 +66,22 @@
              "We could not retrieve project-name from github repo, specify the remote if origin does not refer to your github repository"
              (shut-up-current-output)))))))
 
+(ert-deftest cask-package-toolset-github-repository-name-infer-git ()
+  (let ((cask-package-toolset-github-remote "github")
+        (remote-url "git@github.com:AdrieanKhisbe/cask-package-toolset.el.git"))
+    (with-mock
+     (mock (shell-command-to-string "git config --get remote.github.url") => remote-url)
+     (should (equal "AdrieanKhisbe/cask-package-toolset.el"
+                    (cask-package-toolset-github-repository-name))))))
+
+(ert-deftest cask-package-toolset-github-repository-name-infer-https ()
+  (let ((cask-package-toolset-github-remote "github")
+        (remote-url "https://github.com/AdrieanKhisbe/cask-package-toolset.el.git"))
+    (with-mock
+     (mock (shell-command-to-string "git config --get remote.github.url") => remote-url)
+     (should (equal "AdrieanKhisbe/cask-package-toolset.el"
+                    (cask-package-toolset-github-repository-name))))))
+
 (ert-deftest cpt-update-travis--none ()
     (within-sandbox
      (shut-up (should-error (cask-package-toolset-ensure-latest-travis-config)))))

@@ -32,6 +32,9 @@
   "With this prevent commander to run without asking")
 
 (require 'ert)
+(require 'el-mock)
+(eval-when-compile
+  (require 'cl))
 (require 's)
 (require 'dash)
 (require 'undercover)
