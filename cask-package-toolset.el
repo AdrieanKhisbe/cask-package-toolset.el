@@ -315,7 +315,7 @@ Note it remove enventual trailing .el"
 (defun cask-package-toolset-print-badges ()
   "Print Melpa Recipe."
   (let ((repository-name (cask-package-toolset-github-repository-name)))
-    (if repository-name
+    (if (not (s-blank? repository-name))
         (progn
           (message "%s" (cask-package-toolset-travis-badge repository-name cask-package-toolset-badge-syntax))
           (message "%s" (cask-package-toolset-coveralls-badge repository-name cask-package-toolset-badge-syntax))

@@ -27,11 +27,44 @@
       (within-sandbox
        (should-not (cask-package-toolset-template-present-p file-name)))))
 
+(ert-deftest cpt-install-template--ko()
+  (within-sandbox
+     (shut-up
+      (f-touch (f-expand "void" ))
+      (should-not (cask-package-toolset-install-template "void"))
+      (should (s-contains? "Warning (emacs): File void is already existing. Skipping"
+                     (shut-up-current-output))))))
+
 (ert-deftest cpt-install-all()
   (within-sandbox
    (cask-package-toolset-install-all-templates)
    (should (-all? (lambda (file) (f-exists? file))
                   cask-package-toolset-templates))))
+
+(ert-deftest cpt-setup-test-ok ()
+  (shut-up
+   (within-sandbox
+    (let ((cask-package-toolset-github-repository "titi/toto"))
+      (cask-package-toolset-setup-test)
+      (should (s-contains? "Ert Scaffold files generated" (shut-up-current-output)))))))
+
+(ert-deftest cpt-setup-test-ko-no-remote ()
+  (shut-up
+   (within-sandbox
+    (cask-package-toolset-setup-test)
+    (should (s-contains?
+             "We could not retrieve project-name from github repo, specify the remote if origin does not refer to your github repository"
+             (shut-up-current-output))))))
+
+
+(ert-deftest cask-package-toolset-print-setup-coverage-ko ()
+  (shut-up
+   (within-sandbox
+    (let ((cask-package-toolset-github-repository ""))
+    (cask-package-toolset-print-setup-coverage)
+    (should (s-contains?
+             "We could not retrieve project-name from github repo, specify the remote if origin does not refer to your github repository"
+             (shut-up-current-output)))))))
 
 (ert-deftest cpt-update-travis--none ()
     (within-sandbox
@@ -60,7 +93,8 @@
     "Hello Emacs\n")))
 
 (ert-deftest cpt-fill-template-ko()
-  (should-error (cask-package-toolset-fill-template "non-existing-file")))
+   (should-error (cask-package-toolset-fill-template "non-existing-file" '())))
+   ;;§todo: check output "Warning (emacs): Template not-existing-file not found" (shut-up-current-output))
 
 (ert-deftest cpt-install-test-template()
   (within-sandbox

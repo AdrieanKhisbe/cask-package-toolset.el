@@ -57,7 +57,12 @@ Feature: Set up Continous integration for my Library
        [[https://gitter.im/AdrieanKhisbe/cask-package-toolset.el][file:https://badges.gitter.im/Join%20Chat.svg]]
        """
 
-# TODO: with non existing remote.
+  Scenario: Badge without github repo
+    When I run package-toolset "badge -g "
+    Then I should see command output:
+       """
+       We could not retrieve melpa recipe, specify the remote if origin does not refer to your github repository.
+       """
 
   Scenario: Get melpa recipe
     When I run package-toolset "melpa-recipe -g cask/cask"
