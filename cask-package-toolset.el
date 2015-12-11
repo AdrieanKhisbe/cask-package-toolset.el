@@ -4,7 +4,7 @@
 
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Created:  2015-05-14
-;; Version: 0.7.0
+;; Version: 0.8.0
 ;; Keywords: convenience, tools
 ;; Url: http://github.com/AdrieanKhisbe/cask-package-toolset.el
 ;; Package-Requires: ((emacs "24") (cl-lib "0.3") (s "1.6.1") (dash "1.8.0") (f "0.10.0") (commander "0.2.0") (ansi "0.1.0") (shut-up "0.1.0"))
@@ -32,6 +32,8 @@
 ;;
 ;; Easily setup test and continous intergration to have even better
 ;; emacs libraries where it's more easy to contribute and build new features! :)
+
+;; Changelog is available at the root of the repos and is named CHANGELOG.md
 
 ;;; Code:
 

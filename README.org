@@ -67,7 +67,9 @@ Here is the list of the scaffold file to set up continuous integration for your 
   - [[file:templates/.gitignore][.gitgnore]] : A classic =gitignore= designed for a /casked/ emacs package
   - [[file:templates/.travis.yml][.travis.yml]] : The build configuration file for Travis.
 + The =setup-ert= will setup unit test structure:
-  - [[file:templates/test/test-helper.el][test-helper]] : Require testing libraries and setup usefull variable to different path of the project, or to easily run test in sandbow
+  - [[file:templates/test/test-helper.el][test-helper]] : Require testing libraries such as =ert=, =el-mock=, helper libraries (=dash= =s=)
+    and setup useful variables to different path of the project.
+    It also set up a convenience macro =with-sandbox= to perform operation in a test directory.
   - [[file:templates/testpackage-test.el][package-test]] : the file in which the test will have to be written :) (*cpt can't do that for you ;)*)
   - [[file:templates/.ert-runner][.ert-runner]] : configuration of the ert runner. (adding files to the loadpath)
 + The =setup-undercover= will help you set up coverage.

@@ -7,6 +7,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased][unreleased]
 *Nothing So Far*
 
+### [0.8.0] - 2015-12-11
+### Added
+- [el-mock](https://github.com/rejeep/el-mock.el) is now setup with unit tests
+- FULL COVERAGE :D
+
 ### [0.7.0] - 2015-12-10
 ### Changed
 - Update travis build for evm 0.7 + template
@@ -24,7 +29,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## More history digging would be done one day
 
-[unreleased]: https://github.com/AdrieanKhisbe/cask-package-toolset.el/compare/v0.7.0...HEAD
-[unreleased]: https://github.com/AdrieanKhisbe/cask-package-toolset.el/compare/v0.6.7...v0.7.0
-[0.6.7]: https://github.com/AdrieanKhisbe/cas-package-toolset.el/compare/v0.6.6...v0.6.7
-[0.6.6]: https://github.com/AdrieanKhisbe/cas-package-toolset.el/compare/v0.6.5...v0.6.6
+[unreleased]: https://github.com/AdrieanKhisbe/cask-package-toolset.el/compare/v0.8.0...HEAD
+[0.8.0]: https://github.com/AdrieanKhisbe/cask-package-toolset.el/compare/v0.7.0...v0.8.0
+[0.7.0]: https://github.com/AdrieanKhisbe/cask-package-toolset.el/compare/v0.6.7...v0.7.0
+[0.6.7]: https://github.com/AdrieanKhisbe/cask-package-toolset.el/compare/v0.6.6...v0.6.7
+[0.6.6]: https://github.com/AdrieanKhisbe/cask-package-toolset.el/compare/v0.6.5...v0.6.6
