@@ -32,6 +32,9 @@
      (f-delete default-directory :force)))
 
 (require 'ert)
+(require 'el-mock)
+(eval-when-compile
+    (require 'cl))
 (require '${package-name})
 
 (provide 'test-helper)
