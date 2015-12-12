@@ -38,11 +38,11 @@
 (require 's)
 (require 'dash)
 (require 'undercover)
-(undercover "*.el" "cask-package-toolset/*.el"
+(undercover "*.el"
             (:exclude "*-test.el")
             (:send-report nil)
             (:report-file "/tmp/undercover-report.json"))
-(require 'cask-package-toolset )
+(require 'cask-package-toolset)
 
 (provide 'test-helper)
 
