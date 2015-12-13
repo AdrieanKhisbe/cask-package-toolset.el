@@ -8,7 +8,7 @@
 [[http://www.gnu.org/licenses/gpl-3.0.html][file:http://img.shields.io/:license-gpl3-blue.svg]]
 
 
-/Continuous integration for EmacsLisp without pain!/
+/Continuous Integration for EmacsLisp without pain!/
 
 ** About
 
