@@ -67,6 +67,27 @@ Scenario: Getting the status of a new project
        [[https://gitter.im/AdrieanKhisbe/cask-package-toolset.el][file:https://badges.gitter.im/Join%20Chat.svg]]
        """
 
+
+  Scenario: Trying to print the badge with rst syntax
+    When I run package-toolset "badge -s rst -g AdrieanKhisbe/cask-package-toolset.el"
+    Then I should see command output:
+    """
+    .. image:: https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el.svg
+       :target: https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el
+    .. image:: https://coveralls.io/repos/AdrieanKhisbe/cask-package-toolset.el/badge.svg
+       :target: https://coveralls.io/r/AdrieanKhisbe/cask-package-toolset.el
+    .. image:: http://melpa.org/packages/cask-package-toolset-badge.svg
+       :target: http://melpa.org/#/cask-package-toolset
+    .. image:: http://stable.melpa.org/packages/cask-package-toolset-badge.svg
+       :target: http://stable.melpa.org/#/cask-package-toolset
+    .. image:: https://img.shields.io/github/tag/AdrieanKhisbe/cask-package-toolset.el.svg
+       :target: https://github.com/AdrieanKhisbe/cask-package-toolset.el/tags
+    .. image:: http://img.shields.io/:license-gpl3-blue.svg
+       :target: http://www.gnu.org/licenses/gpl-3.0.html
+    .. image:: https://badges.gitter.im/Join%20Chat.svg
+       :target: https://gitter.im/AdrieanKhisbe/cask-package-toolset.el
+    """
+
   Scenario: Badge without github repo
     When I run package-toolset "badge -g "
     Then I should see command output:

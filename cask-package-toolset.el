@@ -97,7 +97,8 @@
 (defconst cask-package-toolset-url-syntax-alist
   '((:html . "<a href=\"${link}\"><img alt=\"${alt}\" src=\"${img}\"/></a>")
     (:markdown . "[![${alt}](${img})](${link})")
-    (:orgmode . "[[${link}][file:${img}]]")))
+    (:orgmode . "[[${link}][file:${img}]]")
+    (:rst . ".. image:: ${img}\n   :target: ${link}")))
 
 
 (defun cask-package-toolset-badge-template (name syntax)
@@ -122,9 +123,9 @@ Throw exception if non existing!"
 
 (defun cask-package-toolset-set-badge-syntax (syntax)
   "Set badge SYNTAX."
-  (if (-any? (lambda(s)(s-equals? s syntax)) '("html" "markdown" "orgmode"))
+  (if (-any? (lambda(s)(s-equals? s syntax)) '("html" "markdown" "orgmode" "rst"))
       (setq cask-package-toolset-badge-syntax (intern (s-concat ":" syntax)))
-      (error (ansi-red (format "%s is not a valid syntax: valid ones [html markdown orgmode]" syntax)))))
+      (error (ansi-red (format "%s is not a valid syntax: valid ones [html markdown orgmode rst]" syntax)))))
 
 (defun cask-package-toolset-set-force ()
   "Set force mode."
