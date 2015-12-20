@@ -223,49 +223,13 @@ Note it remove enventual trailing .el"
             (cask-package-toolset-project-name repository-name)
             repository-name)))
 
-;; §TODO: extract fun: KILL WITH GENERICITY
-(defun cask-package-toolset-travis-badge (repository-name syntax)
-  "Return a travis badge corresponding to the REPOSITORY-NAME in specified SYNTAX."
+(defun cask-package-toolset-format-badge (badge repository-name syntax)
+  "Return a BADGE corresponding to the REPOSITORY-NAME in specified SYNTAX."
   (unless (s-blank? repository-name)
-    (format (cask-package-toolset-badge-template :travis syntax)
-            repository-name repository-name)))
-
-(defun cask-package-toolset-melpa-badge (repository-name syntax)
-  "Return a melpa badge corresponding to the REPOSITORY-NAME in specified SYNTAX."
-  (unless (s-blank? repository-name)
-    (let ((project-name (cask-package-toolset-project-name repository-name)))
-      (format (cask-package-toolset-badge-template :melpa syntax)
-              project-name project-name))))
-
-(defun cask-package-toolset-melpa-stable-badge (repository-name syntax)
-  "Return a melpa stable badge corresponding to the REPOSITORY-NAME in specified SYNTAX."
-  (unless (s-blank? repository-name)
-    (let ((project-name (cask-package-toolset-project-name repository-name)))
-      (format (cask-package-toolset-badge-template :melpa-stable syntax)
-              project-name project-name))))
-;; §maybe: badge for cask conventions -> SEE
-
-(defun cask-package-toolset-gitter-badge (repository-name syntax)
-  "Return a gitter  badge corresponding to the REPOSITORY-NAME in specified SYNTAX."
-  (unless (s-blank? repository-name)
-    (format (cask-package-toolset-badge-template :gitter syntax) repository-name)))
-
-(defun cask-package-toolset-licence-badge (syntax)
-  "Return a licence in specified SYNTAX."
-  (cask-package-toolset-badge-template :licence syntax))
-
-(defun cask-package-toolset-coveralls-badge (repository-name syntax)
-  "Return a gitter  badge corresponding to the REPOSITORY-NAME in specified SYNTAX."
-  (unless (s-blank? repository-name)
-    (format (cask-package-toolset-badge-template :coveralls syntax)
-            repository-name repository-name)))
-
-(defun cask-package-toolset-github-tag-badge (repository-name syntax)
-  "Return a gitter  badge corresponding to the REPOSITORY-NAME in specified SYNTAX."
-  (unless (s-blank? repository-name)
-    (format (cask-package-toolset-badge-template :github syntax)
-            repository-name repository-name)))
-
+    (let* ((project-name (cask-package-toolset-project-name repository-name))
+           (formated-link (cask-package-toolset-badge-template badge syntax)))
+      (s-format formated-link 'aget `(("package-name" . ,project-name)
+                                      ("repository-name" . ,repository-name))))))
 
 ;; Commands
 (defun cask-package-toolset-install-all-templates ()
@@ -327,15 +291,9 @@ Note it remove enventual trailing .el"
   "Print Melpa Recipe."
   (let ((repository-name (cask-package-toolset-github-repository-name)))
     (if (not (s-blank? repository-name))
-        (-each (list
-                (cask-package-toolset-travis-badge repository-name cask-package-toolset-badge-syntax)
-                (cask-package-toolset-coveralls-badge repository-name cask-package-toolset-badge-syntax)
-                (cask-package-toolset-melpa-badge repository-name cask-package-toolset-badge-syntax)
-                (cask-package-toolset-melpa-stable-badge repository-name cask-package-toolset-badge-syntax)
-                (cask-package-toolset-github-tag-badge repository-name cask-package-toolset-badge-syntax)
-                (cask-package-toolset-licence-badge cask-package-toolset-badge-syntax)
-                (cask-package-toolset-gitter-badge repository-name cask-package-toolset-badge-syntax))
-          ;; note: lost 30 min: Not enough arguments for format string... (for gitterbadge %% quot)
+        (-each (-map (lambda (badge-type)
+                       (cask-package-toolset-format-badge badge-type repository-name cask-package-toolset-badge-syntax))
+                     '(:travis :coveralls :melpa :melpa-stable :github :licence :gitter))
           (lambda (badge) (message "%s" badge)))
       (message (ansi-red "We could not retrieve melpa recipe, specify the remote if origin does not refer to your github repository.")))))
 
