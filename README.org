@@ -51,9 +51,9 @@ Just add this has dependency to your =Cask= file
 + In case your =origin= remote is not targeting your github repository, you can specify
   it with the =-r <remote>= or =--remote <remote>= option
 + You could otherwise directly specify your repositoryname with the =-g= or =--github-repo=
-  option. (don't forget your yoursername ;))
+  option. (don't forget your yoursername or put a stub one ;) =-g toto/secret.el=)
 + For the badges creation, you can specify the syntax you want with =-s <syntax>= or
-  =--syntax <syntax>=. Legit values are =orgmode= =markdown= and =html=, =markown= bring the default
+  =--syntax <syntax>=. Legit values are =orgmode=, =markdown=, =rst= and =html=, =markown= being the default
 
 ** Features
 # TODO: add status
