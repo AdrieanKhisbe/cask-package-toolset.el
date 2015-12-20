@@ -66,41 +66,50 @@
 (defvar cask-package-toolset-force nil
   "Forcing the install or not.")
 
-;; §TODO: refactor with a struct: just link, and build from syntax
-(defconst cask-package-toolset-badge-templates-alist
+(defconst cask-package-toolset-badge-data-alist
   '(
-    (:travis . ((:html . "<a href=\"http://travis-ci.org/%s\"><img alt=\"Build Status\" src=\" https://travis-ci.org/%s.svg\"/></a>")
-                (:markdown . "[![Build Status](https://travis-ci.org/%s.svg)](https://travis-ci.org/%s)")
-                (:orgmode . "[[https://travis-ci.org/%s][file:https://travis-ci.org/%s.svg]]")))
-    (:melpa . ((:html . "<a href=\"http://melpa.org/#/%s\"><img alt=\"MELPA\" src=\"http://melpa.org/packages/%s-badge.svg\"/></a>")
-               (:markdown . "[![MELPA](http://melpa.org/packages/%s-badge.svg)](http://melpa.org/#/%s)")
-               (:orgmode . "[[http://melpa.org/#/%s][file:http://melpa.org/packages/%s-badge.svg]]")))
-    (:melpa-stable . ((:html . "<a href=\"http://stable.melpa.org/#/%s\"><img alt=\"MELPA Stable\" src=\"http://stable.melpa.org/packages/%s-badge.svg\"/></a>")
-                      (:markdown . "[![MELPA stable](http://stable.melpa.org/packages/%s-badge.svg)](http://stable.melpa.org/#/%s)")
-                      (:orgmode . "[[http://stable.melpa.org/#/%s][file:http://stable.melpa.org/packages/%s-badge.svg]]")))
-    (:licence . ((:html . "<a href=\"http://www.gnu.org/licenses/gpl-3.0.html\"><img alt=\"Licence\" src=\"http://img.shields.io/:license-gpl3-blue.svg/\"></a>")
-                 (:markdown . "[![License](http://img.shields.io/:license-gpl3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)")
-                 (:orgmode . "[[http://www.gnu.org/licenses/gpl-3.0.html][http://img.shields.io/:license-gpl3-blue.svg]]")))
-    (:gitter . ((:html . "<a href=\"https://gitter.im/%s\"><img alt=\"Join the chat\" src=\"https://badges.gitter.im/Join%%20Chat.svg\"></a>")
-                (:markdown . "[![Join the chat](https://badges.gitter.im/Join%%20Chat.svg)](https://gitter.im/%s)")
-                (:orgmode . "[[https://gitter.im/%s][file:https://badges.gitter.im/Join%%20Chat.svg]]")))
-    (:coveralls . ((:html . "<a href=\"https://coveralls.io/r/%s\"><img alt=\"Coverage Status\" src=\"https://coveralls.io/repos/%s/badge.svg\"/></a>")
-                   (:markdown . "[![Coverage Status](https://coveralls.io/repos/%s/badge.svg)](https://coveralls.io/r/%s)")
-                   (:orgmode . "[[https://coveralls.io/r/%s][file:https://coveralls.io/repos/%s/badge.svg]]")))
-    ;; note: %%20 for format protection. (prevent interpretation as format specifi)
-    ;;
-    (:github . ((:html . "<a href=\"\"><img alt=\"Tag Version\" src=\"https://img.shields.io/github/tag/%s.svg\"/></a>")
-                (:markdown . "[![Tag Version](https://img.shields.io/github/tag/%s.svg)](https://github.com/%s/tags)")
-                (:orgmode . "[[https://github.com/%s/tags][file:https://img.shields.io/github/tag/%s.svg]]")))
+    (:travis . ((:img . "https://travis-ci.org/%s.svg")
+                (:alt . "Build Status")
+                (:link . "https://travis-ci.org/%s")))
+    (:melpa . ((:img "http://melpa.org/packages/%s-badge.svg")
+               (:alt . "MELPA")
+               (:link . "http://melpa.org/#/%s")))
+    (:melpa-stable . ((:img . "http://stable.melpa.org/packages/%s-badge.svg")
+                      (:alt . "MELPA Stable")
+                      (:link . "http://stable.melpa.org/#/%s")))
+    (:licence . ((:img . "http://img.shields.io/:license-gpl3-blue.svg/")
+                 (:alt . "License")
+                 (:link . "http://www.gnu.org/licenses/gpl-3.0.html")))
+    (:gitter . ((:img . "https://badges.gitter.im/Join%%20Chat.svg")
+                ;; note: %%20 for format protection. (prevent interpretation as format specificier)
+                (:alt . "Join the Chat")
+                (:link . "https://gitter.im/%s")))
+    (:coveralls . ((:img . "https://coveralls.io/repos/%s/badge.svg")
+                   (:alt . "Coverage Status")
+                   (:link . "https://coveralls.io/r/%s")))
+
+    (:github . ((:img . "https://img.shields.io/github/tag/%s.svg")
+                (:alt . "Tag Version")
+                (:link . "https://github.com/%s/tags")))
     )
   "Template string alist for the Badges.")
 ;; §maybe: replace with custom
 
+(defconst cask-package-toolset-url-syntax-alist
+  '((:html . "<a href=\"${link}\"><img alt=\"${alt}\" src=\"${img}\"/></a>")
+    (:markdown . "[![${alt}](${img})](${link})")
+    (:orgmode . "[[${link}][file:${img}]]")))
+
+
 (defun cask-package-toolset-badge-template (name syntax)
   "Return the template for NAME in specified SYNTAX.
 Throw exception if non existing!"
-  (let ((result (cdr (assoc syntax (assoc name cask-package-toolset-badge-templates-alist)))))
-    (if result result (error "%s and %s are not valid template key" name syntax))))
+  (let* ((syntax-badge-template (cdr (assoc syntax cask-package-toolset-url-syntax-alist)))
+         (badge-data (cdr (assoc name cask-package-toolset-badge-data-alist))))
+    ;(error "%s" badge-data)
+    (s-format syntax-badge-template
+              (lambda (var-name)
+                (cdr-safe (assoc (intern-soft (s-concat ":" var-name)) badge-data))))))
 
 (defun cask-package-toolset-set-github-repository (repo)
   "Set github REPO."
