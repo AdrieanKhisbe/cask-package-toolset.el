@@ -318,16 +318,16 @@ Note it remove enventual trailing .el"
   "Print Melpa Recipe."
   (let ((repository-name (cask-package-toolset-github-repository-name)))
     (if (not (s-blank? repository-name))
-        (progn
-          (message "%s" (cask-package-toolset-travis-badge repository-name cask-package-toolset-badge-syntax))
-          (message "%s" (cask-package-toolset-coveralls-badge repository-name cask-package-toolset-badge-syntax))
-          (message "%s" (cask-package-toolset-melpa-badge repository-name cask-package-toolset-badge-syntax))
-          (message "%s" (cask-package-toolset-melpa-stable-badge repository-name cask-package-toolset-badge-syntax))
-          (message "%s" (cask-package-toolset-github-tag-badge repository-name cask-package-toolset-badge-syntax))
-          (message "%s" (cask-package-toolset-licence-badge cask-package-toolset-badge-syntax))
-          (message "%s" (cask-package-toolset-gitter-badge repository-name cask-package-toolset-badge-syntax))
+        (-each (list
+                (cask-package-toolset-travis-badge repository-name cask-package-toolset-badge-syntax)
+                (cask-package-toolset-coveralls-badge repository-name cask-package-toolset-badge-syntax)
+                (cask-package-toolset-melpa-badge repository-name cask-package-toolset-badge-syntax)
+                (cask-package-toolset-melpa-stable-badge repository-name cask-package-toolset-badge-syntax)
+                (cask-package-toolset-github-tag-badge repository-name cask-package-toolset-badge-syntax)
+                (cask-package-toolset-licence-badge cask-package-toolset-badge-syntax)
+                (cask-package-toolset-gitter-badge repository-name cask-package-toolset-badge-syntax))
           ;; note: lost 30 min: Not enough arguments for format string... (for gitterbadge %% quot)
-          )
+          (lambda (badge) (message "%s" badge)))
       (message (ansi-red "We could not retrieve melpa recipe, specify the remote if origin does not refer to your github repository.")))))
 
 (defun cask-package-toolset-print-status()
