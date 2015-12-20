@@ -48,11 +48,11 @@ Scenario: Getting the status of a new project
        [![Build Status](https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el.svg)](https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el)
        [![Coverage Status](https://coveralls.io/repos/AdrieanKhisbe/cask-package-toolset.el/badge.svg)](https://coveralls.io/r/AdrieanKhisbe/cask-package-toolset.el)
        [![MELPA](http://melpa.org/packages/cask-package-toolset-badge.svg)](http://melpa.org/#/cask-package-toolset)
-       [![MELPA stable](http://stable.melpa.org/packages/cask-package-toolset-badge.svg)](http://stable.melpa.org/#/cask-package-toolset)
+       [![MELPA Stable](http://stable.melpa.org/packages/cask-package-toolset-badge.svg)](http://stable.melpa.org/#/cask-package-toolset)
        [![Tag Version](https://img.shields.io/github/tag/AdrieanKhisbe/cask-package-toolset.el.svg)](https://github.com/AdrieanKhisbe/cask-package-toolset.el/tags)
        [![License](http://img.shields.io/:license-gpl3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
        [![Join the chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/AdrieanKhisbe/cask-package-toolset.el)
-       """
+      """
 
   Scenario: Trying to print the badge with orgmode syntax
     When I run package-toolset "badge -s orgmode -g AdrieanKhisbe/cask-package-toolset.el"
@@ -63,7 +63,7 @@ Scenario: Getting the status of a new project
        [[http://melpa.org/#/cask-package-toolset][file:http://melpa.org/packages/cask-package-toolset-badge.svg]]
        [[http://stable.melpa.org/#/cask-package-toolset][file:http://stable.melpa.org/packages/cask-package-toolset-badge.svg]]
        [[https://github.com/AdrieanKhisbe/cask-package-toolset.el/tags][file:https://img.shields.io/github/tag/AdrieanKhisbe/cask-package-toolset.el.svg]]
-       [[http://www.gnu.org/licenses/gpl-3.0.html][http://img.shields.io/:license-gpl3-blue.svg]]
+       [[http://www.gnu.org/licenses/gpl-3.0.html][file:http://img.shields.io/:license-gpl3-blue.svg]]
        [[https://gitter.im/AdrieanKhisbe/cask-package-toolset.el][file:https://badges.gitter.im/Join%20Chat.svg]]
        """
 

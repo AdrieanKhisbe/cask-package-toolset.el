@@ -157,7 +157,7 @@
 
 (ert-deftest cpt-travis-badge-get-template-ok ()
   (should (equal (cask-package-toolset-badge-template :travis :orgmode)
-                 "[[https://travis-ci.org/%s][file:https://travis-ci.org/%s.svg]]")))
+                 "[[https://travis-ci.org/${repository-name}][file:https://travis-ci.org/${repository-name}.svg]]")))
 
 (ert-deftest cpt-travis-badge-get-template-ko ()
   (should-error  (cask-package-toolset-badge-template :real :bullshit)))
@@ -165,17 +165,17 @@
 (ert-deftest cpt-travis-badge-org()
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
         (travis-badge "[[https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el][file:https://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el.svg]]"))
-    (should (equal (cask-package-toolset-travis-badge repo-name :orgmode) travis-badge))))
+    (should (equal (cask-package-toolset-format-badge :travis repo-name :orgmode) travis-badge))))
 
 (ert-deftest cpt-melpa-badge-markdown()
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
         (melpa-badge "[![MELPA](http://melpa.org/packages/cask-package-toolset-badge.svg)](http://melpa.org/#/cask-package-toolset)"))
-    (should (equal (cask-package-toolset-melpa-badge repo-name :markdown) melpa-badge))))
+    (should (equal (cask-package-toolset-format-badge :melpa repo-name :markdown) melpa-badge))))
 
 (ert-deftest cpt-melpa-stable-badge-html()
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
         (melpa-stable-badge "<a href=\"http://stable.melpa.org/#/cask-package-toolset\"><img alt=\"MELPA Stable\" src=\"http://stable.melpa.org/packages/cask-package-toolset-badge.svg\"/></a>"))
-    (should (equal (cask-package-toolset-melpa-stable-badge repo-name :html) melpa-stable-badge))))
+    (should (equal (cask-package-toolset-format-badge :melpa-stable repo-name :html) melpa-stable-badge))))
 
 ;; §> options setters
 (ert-deftest cask-package-toolset-set-badge-syntax-ko()
