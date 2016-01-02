@@ -122,19 +122,29 @@
 
 ;; §TODO: real test of: repository-name with mocking
 
-(ert-deftest cpt-github-url()
+(ert-deftest cpt-github-url ()
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
         (github-url "http://github.com/AdrieanKhisbe/cask-package-toolset.el"))
     (should (equal (cask-package-toolset-github-url repo-name) github-url))))
 
-(ert-deftest cpt-travis-url()
+(ert-deftest cpt-travis-url ()
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
         (travis-url "http://travis-ci.org/AdrieanKhisbe/cask-package-toolset.el"))
     (should (equal (cask-package-toolset-travis-url repo-name) travis-url))))
 
-(ert-deftest cpt-project-name()
+(ert-deftest cpt-project-name ()
+  (let ((repo-name "abc/def")
+        (project-name "def"))
+    (should (equal (cask-package-toolset-project-name repo-name) project-name))))
+
+(ert-deftest cpt-project-name-with-suffix ()
   (let ((repo-name "AdrieanKhisbe/cask-package-toolset.el")
         (project-name "cask-package-toolset"))
+    (should (equal (cask-package-toolset-project-name repo-name) project-name))))
+
+(ert-deftest cpt-project-name-with-prefix ()
+  (let ((repo-name "toto/emacs-stuff")
+        (project-name "stuff"))
     (should (equal (cask-package-toolset-project-name repo-name) project-name))))
 
 ;; Generators

@@ -7,6 +7,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased][unreleased]
 *Nothing So Far*
 
+## [0.9.1] - 2016-01-02
+### Changed
+- Remove `emacs-` prefix when infering project name
+
 ## [0.9.0] - 2015-12-20
 ### Added
 - rst syntax support
@@ -59,7 +63,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### [0.2] - 2015-05-15
 ### [0.1.0] - 2015-05-15
 
-[unreleased]: https://github.com/AdrieanKhisbe/cask-package-toolset.el/compare/v0.9.0...master
+[unreleased]: https://github.com/AdrieanKhisbe/cask-package-toolset.el/compare/v0.9.1...master
+[0.9.1]: https://github.com/AdrieanKhisbe/cask-package-toolset.el/compare/v0.9.0...v0.9.1
 [0.9.0]: https://github.com/AdrieanKhisbe/cask-package-toolset.el/compare/v0.8.1...v0.9.0
 [0.8.1]: https://github.com/AdrieanKhisbe/cask-package-toolset.el/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/AdrieanKhisbe/cask-package-toolset.el/compare/v0.7.0...v0.8.0
