@@ -6,7 +6,7 @@
 [[http://stable.melpa.org/#/cask-package-toolset][file:http://stable.melpa.org/packages/cask-package-toolset-badge.svg]]
 [[https://github.com/AdrieanKhisbe/cask-package-toolset.el/tags][file:https://img.shields.io/github/tag/AdrieanKhisbe/cask-package-toolset.el.svg]]
 [[http://www.gnu.org/licenses/gpl-3.0.html][file:http://img.shields.io/:license-gpl3-blue.svg]]
-
+[[https://github.com/syl20bnr/spacemacs][file:https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg]]
 
 /Continuous Integration for EmacsLisp without pain!/
 
