@@ -44,6 +44,4 @@
             (:report-file "/tmp/undercover-report.json"))
 (require 'cask-package-toolset)
 
-(provide 'test-helper)
-
 ;;; test-helper.el ends here
