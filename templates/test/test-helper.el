@@ -34,8 +34,7 @@
 (require 'ert)
 (require 'el-mock)
 (eval-when-compile
-    (require 'cl))
+  (require 'cl))
 (require '${package-name})
 
-(provide 'test-helper)
 ;;; test-helper.el ends here
